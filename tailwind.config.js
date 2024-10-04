@@ -4,6 +4,9 @@ export default {
   darkMode: "class",
   theme: {
     extend: {
+		height: {
+			mobileHeight:'h-[20px]'
+		},
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
