@@ -1,8 +1,9 @@
 import "./App.css";
+import Hero from "./components/Hero";
 function App() {
   return (
-    <main className=" h-[100vh] flex items-center justify-center">
-      <h1>Hello</h1>
+    <main className=" h-screen w-screen dark:bg-darkBg bg-[#F4F4F4]">
+      <Hero />
     </main>
   );
 }
