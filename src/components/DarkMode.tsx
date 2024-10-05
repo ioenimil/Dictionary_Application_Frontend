@@ -6,33 +6,23 @@ import lightModeMoon from "../assets/lightModeMoon.svg";
 
 const DarkMode = () => {
   const [theme, setTheme] = useState<string | null>(null);
-
   useEffect(() => {
+    const applyTheme = (theme: string) => {
+      setTheme(theme);
+      document.documentElement.classList.toggle("dark", theme === "dark");
+    };
     const storedTheme = localStorage.getItem("theme");
-
     if (storedTheme) {
-      setTheme(storedTheme);
-      if (storedTheme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
+      applyTheme(storedTheme);
     } else {
       const prefersLight = window.matchMedia(
         "(prefers-color-scheme: light)"
       ).matches;
       const newTheme = prefersLight ? "light" : "dark";
-      setTheme(newTheme);
+      applyTheme(newTheme);
       localStorage.setItem("theme", newTheme);
-
-      if (newTheme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
     }
   }, []);
-
   const handleSwitchTheme = () => {
     if (theme === "dark") {
       setTheme("light");

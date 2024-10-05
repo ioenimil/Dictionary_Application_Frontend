@@ -5,7 +5,8 @@ export default {
   theme: {
     extend: {
 		height: {
-			mobileHeight:'h-[20px]'
+			mobileHeight:'h-[20px]',
+      tabletHeight:'h-[36px]'
 		},
       borderRadius: {
         lg: "var(--radius)",
@@ -21,6 +22,7 @@ export default {
         },
         orange: "#FF6500",
         darkBg:' #1E1E1E',
+        grayBg:"#E9E9E9",
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
