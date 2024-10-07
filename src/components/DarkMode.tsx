@@ -1,8 +1,8 @@
+import darkModeMoon from "@assets/darkModeMoon.svg";
+import darkModeSwitch from "@assets/darkModeSwitch.svg";
+import lightModeMoon from "@assets/lightModeMoon.svg";
+import lightModeSwitch from "@assets/lightModeSwitch.svg";
 import { useEffect, useState } from "react";
-import lightModeSwitch from "../assets/lightModeSwitch.svg";
-import darkModeSwitch from "../assets/darkModeSwitch.svg";
-import darkModeMoon from "../assets/darkModeMoon.svg";
-import lightModeMoon from "../assets/lightModeMoon.svg";
 
 const DarkMode = () => {
   const [theme, setTheme] = useState<string | null>(null);
@@ -16,7 +16,7 @@ const DarkMode = () => {
       applyTheme(storedTheme);
     } else {
       const prefersLight = window.matchMedia(
-        "(prefers-color-scheme: light)"
+        "(prefers-color-scheme: light)",
       ).matches;
       const newTheme = prefersLight ? "light" : "dark";
       applyTheme(newTheme);
@@ -35,16 +35,16 @@ const DarkMode = () => {
     }
   };
   return (
-    <div className=" hidden  w-[79.99px] h-mobileHeight md:flex items-center gap-5">
+    <div className="hidden h-mobileHeight w-[79.99px] items-center gap-5 md:flex">
       <img
         onClick={handleSwitchTheme}
-        className="w-[40px] cursor-pointer h-mobileHeight"
+        className="h-mobileHeight w-[40px] cursor-pointer"
         src={theme === "dark" ? darkModeSwitch : lightModeSwitch}
         alt={theme === "dark" ? "Switch to dark mode" : "Switch to light mode"}
       />
       <img
         onClick={handleSwitchTheme}
-        className="w-[19.99px] cursor-pointer h-mobileHeight]"
+        className="h-mobileHeight] w-[19.99px] cursor-pointer"
         src={theme === "dark" ? darkModeMoon : lightModeMoon}
         alt={theme === "dark" ? "darkModeMoon" : "lightModeMoon"}
       />
