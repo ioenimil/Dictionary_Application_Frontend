@@ -2,17 +2,20 @@ import DarkMode from "./DarkMode";
 import bookIcon from "../assets/iconoir_book.svg";
 import userIcon from "../assets/userIcon.svg";
 import navMenuIcon from "../assets/navMenuIcon.svg";
+import Dropdown from "./Dropdown";
 const NavBar = () => {
   return (
-    <div className="  w-[326px] h-8     md:w-[689px] md:h-tabletHeight lg:w-[736.99px] flex items-center justify-between">
+    <div className=" mt-8  w-[326px] h-8     md:w-[689px] md:h-tabletHeight lg:w-[736.99px] flex items-center justify-between">
       <img
         className="w-[28.05px]  h-[31.56px] md:w-[32px] md:h-tabletHeight"
         src={bookIcon}
         alt="book"
-      />
-      <div className="    md:w-[250px] lg:w-[267.99px] h-8 flex items-center justify-between  md:gap-2  lg:gap-5">
-        <div className=" hidden md:block">Drop Down</div>
-        <span className="w-[1px] h-8 bg-grayBg block"></span>
+      />  
+      <div className="  md:w-[275px] lg:w-[270px] h-8 flex items-center  lg:justify-end   md:gap-2">
+        <div className="lg:w-[120px] hidden md:block">
+          <Dropdown />
+        </div>
+        <span className="w-[1px] md:mr-2 lg:mr-2  h-8 bg-grayBg block"></span>
         <DarkMode />
 
         <p className=" hidden bg-[#D3E3F7] md:w-[40px] md:h-[40px] md:flex items-center justify-center rounded-full">

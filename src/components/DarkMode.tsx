@@ -35,7 +35,7 @@ const DarkMode = () => {
     }
   };
   return (
-    <div className=" hidden  w-[79.99px] h-mobileHeight md:flex items-center gap-5">
+    <div className=" hidden  w-[79.99px]  h-mobileHeight md:flex items-center md:gap-4 lg:gap-3">
       <img
         onClick={handleSwitchTheme}
         className="w-[40px] cursor-pointer h-mobileHeight"

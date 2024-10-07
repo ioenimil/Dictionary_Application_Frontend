@@ -1,0 +1,11 @@
+import Search from "./Search"
+
+const SearchContent = () => {
+  return (
+    <div className=" w-[327px] h-[86%]  md:w-[689px]  md:h-[819px] lg:h-[550px] lg:w-[737px]  mt-5 md:mt-8">
+      <Search/>
+    </div>
+  )
+}
+
+export default SearchContent
