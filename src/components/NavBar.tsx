@@ -1,4 +1,3 @@
-// import DarkMode from "./DarkMode";
 import bookIcon from "@assets/iconoir_book.svg";
 import navMenuIcon from "@assets/navMenuIcon.svg";
 import userIcon from "@assets/userIcon.svg";

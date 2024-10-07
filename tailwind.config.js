@@ -4,10 +4,10 @@ export default {
   darkMode: "class",
   theme: {
     extend: {
-		height: {
-			mobileHeight:'h-[20px]',
-      tabletHeight:'h-[36px]'
-		},
+      height: {
+        mobileHeight: "h-[20px]",
+        tabletHeight: "h-[36px]",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -21,8 +21,9 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         orange: "#FF6500",
-        darkBg:' #1E1E1E',
-        grayBg:"#E9E9E9",
+        darkBg: "#1E1E1E",
+        grayBg: "#E9E9E9",
+
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
