@@ -2,31 +2,30 @@ import { useState } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 const fontOptions = [
-  { name: "San Serif", value: "San Serif" },
-  { name: "Serif", value: "Serif" },
-  { name: "Mono", value: "Mono" },
+  { name: "San Serif", value: "san-serif" },
+  { name: "Serif", value: "serif" },
+  { name: "Mono", value: "monospace" },
 ];
-
 const Dropdown = () => {
-  const [selectedFont, setSelectedFont] = useState("San Serif");
-  const [isOpen, setIsOpen] = useState(false);
+  const [selectedFont, setSelectedFont] = useState<string>("Sans Serif");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const handleFontSelection = (font: string): void => {
-    setSelectedFont(font);
-    document.querySelector("body")?.style.setProperty("font-family", font);
+  const handleFontSelection = (fontValue: string,fontName:string): void => {
+    setSelectedFont(fontName);
+    document.querySelector("body")?.style.setProperty("font-family", fontValue);
     setIsOpen(false);
   };
 
-  const renderFontOption = (font: string) => (
+  const renderFontOption = (fontValue: string,fontName:string) => (
     <div
-      key={font}
-      onClick={() => handleFontSelection(font)}
-      className="p-2 font-semibold dark:hover:text-[#FF6500] hover:text-blue-600 cursor-pointer"
+      key={fontValue}
+      onClick={() => handleFontSelection(fontValue,fontName)}
+      className="p-2 font-bold dark:hover:text-[#FF6500] hover:text-blue-600 cursor-pointer"
     >
-      {font}
+      {fontName}
     </div>
   );
-  
+
   return (
     <div className="relative inline-block w-full">
       <div
@@ -43,7 +42,7 @@ const Dropdown = () => {
 
       {isOpen && (
         <div className="absolute lg:w-[183px] left-0 right-0 mt-2 py-3 px-3 rounded-2xl bg-white dark:bg-darkBg shadow-lightMode dark:shadow-darkMode z-10">
-          {fontOptions.map((font) => renderFontOption(font.value))}
+          {fontOptions.map((font) => renderFontOption(font.value,font.name))}
         </div>
       )}
     </div>
