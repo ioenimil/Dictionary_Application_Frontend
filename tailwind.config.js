@@ -8,6 +8,10 @@ export default {
 			mobileHeight:'h-[20px]',
       tabletHeight:'h-[36px]'
 		},
+    boxShadow: {
+      'lightMode': '0px 5px 30px 0px #5091dd',
+      'darkMode': '0px 5px 10px 0px #ff65001a', 
+    },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

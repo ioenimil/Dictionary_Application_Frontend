@@ -3,6 +3,7 @@ import bookIcon from "@assets/iconoir_book.svg";
 import navMenuIcon from "@assets/navMenuIcon.svg";
 import userIcon from "@assets/userIcon.svg";
 import DarkMode from "./DarkMode";
+import Dropdown from "./Dropdown";
 const NavBar = () => {
   return (
     <div className="flex h-8 w-[326px] items-center justify-between gap-2 md:h-tabletHeight md:w-[689px] lg:w-[736.99px]">
@@ -11,9 +12,11 @@ const NavBar = () => {
         src={bookIcon}
         alt="book"
       />
-      <div className="flex h-8 items-center justify-between md:w-[250px] md:gap-2 lg:w-[267.99px] lg:gap-5">
-        <div className="hidden md:block">Drop Down</div>
-        <span className="block h-8 w-[1px] bg-grayBg"></span>
+      <div className="flex h-8 items-center md:w-[275px] md:gap-2 lg:w-[270px] lg:justify-end">
+        <div className="hidden md:block lg:w-[120px]">
+          <Dropdown />
+        </div>
+        <span className="block h-8 w-[1px] bg-grayBg md:mr-2 lg:mr-2"></span>
         <DarkMode />
 
         <p className="hidden items-center justify-center rounded-full bg-[#D3E3F7] md:flex md:h-[40px] md:w-[40px]">
