@@ -43,8 +43,7 @@ const DarkMode = () => {
         alt={theme === "dark" ? "Switch to dark mode" : "Switch to light mode"}
       />
       <img
-        onClick={handleSwitchTheme}
-        className="w-[19.99px] cursor-pointer h-mobileHeight]"
+        className="w-[19.99px]  h-mobileHeight]"
         src={theme === "dark" ? darkModeMoon : lightModeMoon}
         alt={theme === "dark" ? "darkModeMoon" : "lightModeMoon"}
       />
