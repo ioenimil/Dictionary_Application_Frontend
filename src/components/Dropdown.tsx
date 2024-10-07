@@ -3,7 +3,7 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 const fontOptions = [
   { name: "San Serif", value: "san-serif" },
-  { name: "Serif", value: "serif" },
+  { name: "Cursive", value: "cursive" },
   { name: "Mono", value: "monospace" },
 ];
 const Dropdown = () => {

@@ -38,7 +38,7 @@ const DarkMode = () => {
     <div className=" hidden  w-[79.99px]  h-mobileHeight md:flex items-center md:gap-4 lg:gap-3">
       <img
         onClick={handleSwitchTheme}
-        className="w-[40px] cursor-pointer h-mobileHeight"
+        className="w-10 cursor-pointer h-mobileHeight"
         src={theme === "dark" ? darkModeSwitch : lightModeSwitch}
         alt={theme === "dark" ? "Switch to dark mode" : "Switch to light mode"}
       />
