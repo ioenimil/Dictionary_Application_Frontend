@@ -20,7 +20,7 @@ const Dropdown = () => {
     <div
       key={fontValue}
       onClick={() => handleFontSelection(fontValue,fontName)}
-      className="p-2 font-bold dark:hover:text-[#FF6500] hover:text-blue-600 cursor-pointer"
+      className="p-2 font-bold dark:hover:text-orange hover:text-blue-600 cursor-pointer"
     >
       {fontName}
     </div>

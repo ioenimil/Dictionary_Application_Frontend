@@ -10,7 +10,7 @@ export default {
 		},
     boxShadow: {
       'lightMode': '0px 5px 30px 0px #5091dd',
-      'darkMode': '0px 5px 10px 0px #ff65001a', // Custom shadow with #5091DD color
+      'darkMode': '0px 5px 10px 0px #ff65001a', 
     },
       borderRadius: {
         lg: "var(--radius)",
