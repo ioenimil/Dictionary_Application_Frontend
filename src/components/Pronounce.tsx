@@ -1,32 +1,55 @@
-import React from "react";
+import React, { useRef } from "react";
 import playIcon from "../assets/play.svg";
 import { WordResult } from "./SearchContent";
+
 interface Props {
   results: WordResult[];
 }
 const Pronounce: React.FC<Props> = ({ results }) => {
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const playAudio = () => {
+    if (audioRef.current) {
+      audioRef.current.play();
+    }
+  };
+
+  const firstResult = results[0];
+   
+  if (!firstResult) {
+    return null;
+  }
+
+  const phoneticWithAudio = firstResult.phonetics.find(
+    (phonetic) => phonetic.audio
+  );
+
   return (
-    <>
-      {results.map((meaning) => {
-        return (
-          <div className=" flex items-center justify-between">
-            <div>
-              <h2 className=" font-bold text-2xl text-[#2D2D2D]">
-                {meaning.word}
-              </h2>
-              <p className=" text-blue-600">{meaning.phonetic}</p>
-            </div>
-            <div className="">
-              <img
-                className=" h-[60px] w-[60px]"
-                src={playIcon}
-                alt="play icon"
-              />
-            </div>
-          </div>
-        );
-      })}
-    </>
+    <div className=" flex items-center justify-between">
+      <div>
+        <h2 className="font-bold text-2xl capitalize text-[#2D2D2D]">
+          {firstResult.word}
+        </h2>
+        <p className="text-global_blue font-semibold">{firstResult.phonetic}</p>
+      </div>
+      <div>
+        {phoneticWithAudio && (
+          <>
+            <img
+              onClick={playAudio}
+              className="h-[60px] w-[60px] cursor-pointer"
+              src={playIcon}
+              alt="play icon"
+            />
+            <audio
+              ref={audioRef}
+              className="hidden"
+              src={phoneticWithAudio.audio}
+            />
+          </>
+        )}
+      </div>
+    </div>
   );
 };
 

@@ -5,7 +5,7 @@ import navMenuIcon from "../assets/navMenuIcon.svg";
 import Dropdown from "./Dropdown";
 const NavBar = () => {
   return (
-    <div className=" mt-8  w-[326px] h-8     md:w-[689px] md:h-tabletHeight lg:w-[736.99px] flex items-center justify-between">
+    <div className=" mt-8  w-[326px] h-10     md:w-[689px] md:h-tabletHeight lg:w-[736.99px] flex items-center justify-between">
       <img
         className="w-[28.05px]  h-[31.56px] md:w-[32px] md:h-tabletHeight"
         src={bookIcon}
