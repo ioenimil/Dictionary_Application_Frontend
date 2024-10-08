@@ -21,17 +21,23 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, className = "" }) => {
     }
   };
 
+  const handleAudioEnd = () => {
+    setIsPlaying(false);
+  };
+
   return (
     <div className={`flex flex-col items-center ${className}`}>
-      <audio ref={audioRef} src={src} />
+      <audio ref={audioRef} src={src} onEnded={handleAudioEnd} />
       <button
         onClick={togglePlayPause}
-        className={`flex h-[75px] w-[75px] items-center justify-center rounded-full text-white ${isPlaying ? "bg-[#5090DD]" : "bg-[#6ca1e1a5]"}`}
+        className={`flex h-[75px] w-[75px] items-center justify-center rounded-full text-white ${
+          isPlaying ? "bg-primaryBlue" : "bg-[#7caae3a5]"
+        }`}
       >
         {isPlaying ? (
           <FaPause className="h-5 w-5 justify-items-center text-white" />
         ) : (
-          <FaPlay className="h-5 w-5 justify-items-center text-white" />
+          <FaPlay className="text-primaryBlue h-5 w-5 justify-items-center" />
         )}
       </button>
     </div>
