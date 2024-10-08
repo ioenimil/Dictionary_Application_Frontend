@@ -36,7 +36,7 @@ jobs:
         with:
           appSourcePath: ${{ github.workspace }}
           _dockerfilePathKey_: _dockerfilePath_
-          registryUrl: 
+          registryUrl: iohub.azurecr.io
           registryUsername: ${{ secrets.DICTIONARYAPPLICATIONFRONTEND_REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.DICTIONARYAPPLICATIONFRONTEND_REGISTRY_PASSWORD }}
           containerAppName: dictionary-application-frontend
