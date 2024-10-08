@@ -1,21 +1,34 @@
 import { ChangeEvent, useState } from "react";
 import blueSearchIcon from "../assets/blueSearchIcon.svg";
-const SearchComponent = () => {
+import { WordResult } from "./SearchContent";
+
+interface Props {
+  setResults: React.Dispatch<React.SetStateAction<WordResult[]>>;
+}
+const SearchComponent:React.FC<Props> = ({ setResults }) => {
   const [searchedWord, setSearchedWord] = useState<string>("");
   const [error, setError] = useState<string>("");
+
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setSearchedWord(e.target.value);
     if (error) setError("");
   };
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (searchedWord.trim() === "") {
       setError("Whoops, can't be empty...");
     } else {
       setError("");
       setSearchedWord("");
+      const word = searchedWord.toLowerCase();
+      const response = await fetch(
+        `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
+      );
+      const data = await response.json();
+      setResults(data);
     }
   };
+
   return (
     <div>
       <form
