@@ -4,9 +4,10 @@ import PartOfSpeech from "./PartOfSpeech";
 interface Props {
   results: WordResult[];
 }
+
 const WordInfo: React.FC<Props> = ({ results }) => {
   return (
-    <div className=" mt-8  max-h-[87%] overflow-y-auto ">
+    <div className="mt-6 max-h-[87%] overflow-y-auto scrollbar-thin">
       <PartOfSpeech results={results} />
     </div>
   );

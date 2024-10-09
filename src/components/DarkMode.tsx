@@ -3,8 +3,10 @@ import lightModeSwitch from "../assets/lightModeSwitch.svg";
 import darkModeSwitch from "../assets/darkModeSwitch.svg";
 import darkModeMoon from "../assets/darkModeMoon.svg";
 import lightModeMoon from "../assets/lightModeMoon.svg";
-
-const DarkMode = () => {
+interface Props {
+  showNav: boolean;
+}
+const DarkMode = ({ showNav }: Props) => {
   const [theme, setTheme] = useState<string | null>(null);
   useEffect(() => {
     const applyTheme = (theme: string) => {
@@ -36,18 +38,52 @@ const DarkMode = () => {
     }
   };
   return (
-    <div className=" hidden  w-[79.99px]  h-mobileHeight md:flex items-center md:gap-4 lg:gap-3">
-      <img
-        onClick={handleSwitchTheme}
-        className="w-10 cursor-pointer h-mobileHeight"
-        src={theme === "dark" ? darkModeSwitch : lightModeSwitch}
-        alt={theme === "dark" ? "Switch to dark mode" : "Switch to light mode"}
-      />
-      <img
-        className="w-[19.99px]  h-mobileHeight]"
-        src={theme === "dark" ? darkModeMoon : lightModeMoon}
-        alt={theme === "dark" ? "darkModeMoon" : "lightModeMoon"}
-      />
+    <div
+      className={` ${
+        showNav ? `flex` : `hidden`
+      }     md:w-[79.99px]   h-mobileHeight md:flex justify-between md:justify-center items-center gap-4 md:gap-4 lg:gap-3`}
+    >
+      {showNav ? (
+        <>
+          {showNav ? (
+            <p className=" font-semibold">Dark Mode</p>
+          ) : (
+            <img
+              className="w-[19.99px]  h-mobileHeight]"
+              src={theme === "dark" ? darkModeMoon : lightModeMoon}
+              alt={theme === "dark" ? "darkModeMoon" : "lightModeMoon"}
+            />
+          )}
+          <img
+            onClick={handleSwitchTheme}
+            className="w-10 cursor-pointer h-mobileHeight"
+            src={theme === "dark" ? darkModeSwitch : lightModeSwitch}
+            alt={
+              theme === "dark" ? "Switch to dark mode" : "Switch to light mode"
+            }
+          />
+        </>
+      ) : (
+        <>
+          <img
+            onClick={handleSwitchTheme}
+            className="w-10 cursor-pointer h-mobileHeight"
+            src={theme === "dark" ? darkModeSwitch : lightModeSwitch}
+            alt={
+              theme === "dark" ? "Switch to dark mode" : "Switch to light mode"
+            }
+          />
+          {showNav ? (
+            <p>Darkmode</p>
+          ) : (
+            <img
+              className="w-[19.99px]  h-mobileHeight]"
+              src={theme === "dark" ? darkModeMoon : lightModeMoon}
+              alt={theme === "dark" ? "darkModeMoon" : "lightModeMoon"}
+            />
+          )}
+        </>
+      )}
     </div>
   );
 };
