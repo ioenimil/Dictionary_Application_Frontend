@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import playIcon from "../assets/play.svg";
-import { WordResult } from "./SearchContent";
+import { WordResult } from "@/types";
 
 interface Props {
   results: WordResult[];
@@ -27,10 +27,10 @@ const Pronounce: React.FC<Props> = ({ results }) => {
   return (
     <div className=" flex items-center justify-between">
       <div>
-        <h2 className="font-bold text-2xl capitalize text-[#2D2D2D]">
+        <h2 className="font-bold dark:text-white text-2xl capitalize text-[#2D2D2D]">
           {firstResult.word}
         </h2>
-        <p className="text-global_blue font-semibold">{firstResult.phonetic}</p>
+        <p className="text-global_blue dark:text-global_orange font-semibold">{firstResult.phonetic}</p>
       </div>
       <div>
         {phoneticWithAudio && (

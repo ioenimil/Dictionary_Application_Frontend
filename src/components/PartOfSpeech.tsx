@@ -1,5 +1,6 @@
+import { WordResult } from "@/types";
 import React from "react";
-import { WordResult } from "./SearchContent";
+
 
 // Component to display parts of speech, meanings, synonyms, and source URLs
 interface Props {
@@ -22,14 +23,14 @@ const PartOfSpeech: React.FC<Props> = ({ results}) => {
                   <hr className="w-full ml-8" />
                 </div>
 
-                <p className="mt-1 text-[#757575] text-base">Meaning</p>
-                <ul className="list-disc marker:text-global_blue px-10 text-sm space-y-2">
+                <p className="mt-3 text-[#757575] text-sm">Meaning</p>
+                <ul className="list-disc dark:marker:text-global_orange marker:text-global_blue px-10 text-sm space-y-2">
                   {meaning.definitions.map((definition, i) => (
                     <li key={i}>
                       {definition.definition}
 
                       {definition.example && (
-                        <p className="mt-1 text-gray-500">
+                        <p className="mt-3 text-gray-500">
                           "{definition.example}"
                         </p>
                       )}
@@ -38,10 +39,10 @@ const PartOfSpeech: React.FC<Props> = ({ results}) => {
                 </ul>
 
                 {meaning.synonyms.length > 0 && (
-                  <div className="mt-1 flex items-center flex-wrap gap-2">
-                    <p className="text-[#757575] text-base">Synonyms:</p>
+                  <div className="mt-3 flex items-center flex-wrap gap-2">
+                    <p className="text-[#757575] text-sm">Synonyms:</p>
                     {meaning.synonyms.map((synonym) => (
-                      <p key={synonym} className="text-blue-600">
+                      <p key={synonym} className="text-blue-600 dark:text-global_orange">
                         {synonym}
                       </p>
                     ))}
@@ -52,7 +53,7 @@ const PartOfSpeech: React.FC<Props> = ({ results}) => {
 
             {sourceUrls.length > 0 && (
               <div className="mt-5  flex items-center gap-5">
-                <p className="text-[#757575] text-base">Source:</p>
+                <p className="text-[#757575] text-sm">Source:</p>
                 {sourceUrls.map((url, index) => (
                   <a
                     key={index}

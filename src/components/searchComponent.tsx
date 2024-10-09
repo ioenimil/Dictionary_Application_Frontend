@@ -1,12 +1,10 @@
 import { ChangeEvent, useState } from "react";
-import { WordResult } from "./SearchContent";
 import { IoSearchOutline } from "react-icons/io5";
-import { WordNotFoundError } from "@/types";
+import { WordNotFoundError, WordResult } from "@/types";
 
 interface Props {
   setResults: React.Dispatch<React.SetStateAction<WordResult[]>>;
   setWordNotFoundError: React.Dispatch<React.SetStateAction<WordNotFoundError | null>>;
-  
 }
 const SearchComponent: React.FC<Props> = ({
   setResults,
@@ -14,35 +12,49 @@ const SearchComponent: React.FC<Props> = ({
 }) => {
   const [searchedWord, setSearchedWord] = useState<string>("");
   const [error, setError] = useState<string>("");
-  // const [wordNotFoundError, setWordNotFoundError] = useState<object>({});
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setSearchedWord(e.target.value);
     if (error) setError("");
+    setWordNotFoundError(null);
   };
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
+
     if (searchedWord.trim() === "") {
       setError("Whoops, can't be empty...");
+      return;
     } else {
       setError("");
       const word = searchedWord.toLowerCase();
       setSearchedWord("");
+
       try {
         const response = await fetch(
           `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
         );
+
         if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(
-            `${errorData.title}: ${errorData.message} ${errorData.resolution}`
-          );
+          const errorData: WordNotFoundError = await response.json(); // Typing error data
+
+          // Set error object
+          setWordNotFoundError({
+            title: errorData.title || "No Definitions Found",
+            message: errorData.message || "Sorry, no definitions found.",
+            resolution: errorData.resolution || "Try again later or check the web."
+          });
+
+          return; // Stop further execution after setting the error
         }
-        const data = await response.json();
-        setResults(data);
-      } catch (error:any) {
-        setWordNotFoundError(
-          error.message || "Something went wrong. Please try again."
-        );
+
+        const data: WordResult[] = await response.json();  // Typing API data
+        setResults(data);  // Set the results if word is found
+
+      } catch (error) {
+        setWordNotFoundError({
+          title: "Error",
+          message: "Something went wrong. Please try again.",
+          resolution: ""
+        });
       }
     }
   };
@@ -51,7 +63,7 @@ const SearchComponent: React.FC<Props> = ({
     <div>
       <form
         onSubmit={handleSubmit}
-        className=" relative mb-1  w-[327px] h-[48px] lg:w-[736px] md:w-[689px] md:h-16 rounded-lg dark:bg-[#1F1F1F] bg-grayBg flex items-center "
+        className=" relative mb-1  w-[327px] h-[48px] lg:w-[736px] md:w-[689px] md:h-16 rounded-lg dark:bg-searchBgDarkMode bg-grayBg flex items-center "
       >
         <input
           value={searchedWord}
@@ -66,7 +78,7 @@ const SearchComponent: React.FC<Props> = ({
           placeholder="Search for any word..."
         />
         <button className="absolute right-5 cursor-pointer" type="submit">
-          <IoSearchOutline className=" font-semibold" />
+          <IoSearchOutline className=" font-semibold dark:text-global_orange" />
         </button>
       </form>
       <span className=" text-global_red">{error}</span>
