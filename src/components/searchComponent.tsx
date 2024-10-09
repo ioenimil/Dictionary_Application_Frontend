@@ -4,7 +4,9 @@ import { WordNotFoundError, WordResult } from "@/types";
 
 interface Props {
   setResults: React.Dispatch<React.SetStateAction<WordResult[]>>;
-  setWordNotFoundError: React.Dispatch<React.SetStateAction<WordNotFoundError | null>>;
+  setWordNotFoundError: React.Dispatch<
+    React.SetStateAction<WordNotFoundError | null>
+  >;
 }
 const SearchComponent: React.FC<Props> = ({
   setResults,
@@ -17,7 +19,9 @@ const SearchComponent: React.FC<Props> = ({
     if (error) setError("");
     setWordNotFoundError(null);
   };
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     e.preventDefault();
 
     if (searchedWord.trim() === "") {
@@ -34,31 +38,29 @@ const SearchComponent: React.FC<Props> = ({
         );
 
         if (!response.ok) {
-          const errorData: WordNotFoundError = await response.json(); // Typing error data
+          const errorData: WordNotFoundError = await response.json();
 
-          // Set error object
           setWordNotFoundError({
             title: errorData.title || "No Definitions Found",
             message: errorData.message || "Sorry, no definitions found.",
-            resolution: errorData.resolution || "Try again later or check the web."
+            resolution:
+              errorData.resolution || "Try again later or check the web.",
           });
 
-          return; // Stop further execution after setting the error
+          return;
         }
 
-        const data: WordResult[] = await response.json();  // Typing API data
-        setResults(data);  // Set the results if word is found
-
+        const data: WordResult[] = await response.json();
+        setResults(data);
       } catch (error) {
         setWordNotFoundError({
           title: "Error",
           message: "Something went wrong. Please try again.",
-          resolution: ""
+          resolution: "",
         });
       }
     }
   };
-
   return (
     <div>
       <form

@@ -9,7 +9,7 @@ const SearchContent = () => {
   const [wordNotFoundError, setWordNotFoundError] =
     useState<WordNotFoundError | null>(null);
   return (
-    <div className=" w-[327px]  md:w-[689px] md:h-[819px] lg:h-[525px] lg:w-[737px] mt-5 md:mt-6">
+    <div className=" w-[327px]  md:w-[689px] md:h-[819px] h-full lg:h-[600px] lg:w-[737px] mt-5 md:mt-6">
       <SearchComponent
         setWordNotFoundError={setWordNotFoundError}
         setResults={setResults}
