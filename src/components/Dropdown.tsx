@@ -20,17 +20,6 @@ const Dropdown = () => {
     localStorage.setItem("fontValue", fontValue);
   };
 
-  useEffect(() => {
-    const storedFont = localStorage.getItem("selectedFont");
-    const storeFontValue = localStorage.getItem("fontValue");
-    if (storedFont && storeFontValue) {
-      setSelectedFont(storedFont);
-      document
-        .querySelector("body")
-        ?.style.setProperty("font-family", storeFontValue);
-    }
-  }, []);
-
   const handleClickOutside = (e: MouseEvent) => {
     if (
       dropdownRef.current &&
@@ -41,6 +30,15 @@ const Dropdown = () => {
   };
 
   useEffect(() => {
+    const storedFont = localStorage.getItem("selectedFont");
+    const storeFontValue = localStorage.getItem("fontValue");
+    if (storedFont && storeFontValue) {
+      setSelectedFont(storedFont);
+      document
+        .querySelector("body")
+        ?.style.setProperty("font-family", storeFontValue);
+    }
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
