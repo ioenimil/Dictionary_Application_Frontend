@@ -53,9 +53,10 @@ const SearchComponent: React.FC<Props> = ({
         const data: WordResult[] = await response.json();
         setResults(data);
       } catch (error) {
+        const errorMessage = (error instanceof Error) ? error.message : "Something went wrong. Please try again.";
         setWordNotFoundError({
           title: "Error",
-          message: "Something went wrong. Please try again.",
+          message: errorMessage,
           resolution: "",
         });
       }
