@@ -16,6 +16,8 @@ const Dropdown = () => {
     setSelectedFont(fontName);
     document.querySelector("body")?.style.setProperty("font-family", fontValue);
     setIsOpen(false);
+    localStorage.setItem("selectedFont", fontName);
+    localStorage.setItem("fontValue", fontValue);
   };
 
   const handleClickOutside = (e: MouseEvent) => {
@@ -25,6 +27,14 @@ const Dropdown = () => {
   };
 
   useEffect(() => {
+    const storedFont = localStorage.getItem("selectedFont");
+    const storeFontValue = localStorage.getItem("fontValue");
+    if (storedFont && storeFontValue) {
+      setSelectedFont(storedFont);
+      document
+        .querySelector("body")
+        ?.style.setProperty("font-family", storeFontValue);
+    }
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -55,7 +65,7 @@ const Dropdown = () => {
         )}
       </div>
       <div
-        className={`absolute left-0 right-0 mt-2 py-3 px-3 md:w-[150px] lg:w-[180px]  rounded-2xl bg-white dark:bg-darkBg shadow-lightMode dark:shadow-darkMode z-10 transform transition-all duration-300 ease-out 
+        className={`absolute left-0 right-0 mt-2 py-3 px-3 md:w-[150px] lg:w-[180px]  rounded-2xl md:bg-white dark:bg-darkBg shadow-lightMode dark:shadow-darkMode z-10 transform transition-all duration-300 ease-out 
         ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"}`}
       >
         {fontOptions.map((font) => renderFontOption(font.value, font.name))}

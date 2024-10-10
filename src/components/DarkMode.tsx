@@ -1,10 +1,14 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import lightModeSwitch from "../assets/lightModeSwitch.svg";
 import darkModeSwitch from "../assets/darkModeSwitch.svg";
 import darkModeMoon from "../assets/darkModeMoon.svg";
 import lightModeMoon from "../assets/lightModeMoon.svg";
 
-const DarkMode = () => {
+interface Props {
+  showNav: boolean;
+  // setShowNav: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const DarkMode:React.FC<Props> = ({showNav}) => {
   const [theme, setTheme] = useState<string | null>(null);
   useEffect(() => {
     const applyTheme = (theme: string) => {
@@ -19,7 +23,7 @@ const DarkMode = () => {
         "(prefers-color-scheme: light)"
       ).matches;
       const newTheme = prefersLight ? "light" : "dark";
-      
+
       applyTheme(newTheme);
       localStorage.setItem("theme", newTheme);
     }
@@ -36,7 +40,7 @@ const DarkMode = () => {
     }
   };
   return (
-    <div className=" hidden  w-[79.99px]  h-mobileHeight md:flex items-center md:gap-4 lg:gap-3">
+    <div className=" h-mobileHeight flex items-center justify-between md:justify-center md:gap-4 lg:gap-3">
       <img
         onClick={handleSwitchTheme}
         className="w-10 cursor-pointer h-mobileHeight"

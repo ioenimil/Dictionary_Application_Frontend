@@ -4,14 +4,14 @@ export default {
   darkMode: "class",
   theme: {
     extend: {
-		height: {
-			mobileHeight:'h-[20px]',
-      tabletHeight:'h-[36px]'
-		},
-    boxShadow: {
-      'lightMode': '0px 5px 30px 0px #5091dd',
-      'darkMode': '0px 5px 10px 0px #ff65001a', 
-    },
+      height: {
+        mobileHeight: "h-[20px]",
+        tabletHeight: "h-[36px]",
+      },
+      boxShadow: {
+        lightMode: "0px 5px 30px 0px #5091dd",
+        darkMode: "0px 5px 10px 0px #ff65001a",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -25,12 +25,12 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         global_orange: "#FF6500",
-        global_blue:'#5090DD',
-        global_red:"#FF5252",
-        darkBg:' #1E1E1E',
-        grayBg:"#F4F4F4",
-        searchBgDarkMode:"#3F3F3F",
-        textGray:"#757575",
+        global_blue: "#5090DD",
+        global_red: "#FF5252",
+        darkBg: " #1E1E1E",
+        grayBg: "#F4F4F4",
+        searchBgDarkMode: "#3F3F3F",
+        textGray: "#757575",
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",

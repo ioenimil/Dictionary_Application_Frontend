@@ -32,7 +32,7 @@ const SideNav = ({ setShowNav, showNav }: Props) => {
 
       
         <div className="mt-20 flex flex-col gap-7 px-10">
-          <DarkMode  />
+          <DarkMode showNav = {showNav}  />
           <Dropdown />
           <div className="w-full flex items-center justify-between">
             <p className="font-semibold dark:text-white">Login</p>
