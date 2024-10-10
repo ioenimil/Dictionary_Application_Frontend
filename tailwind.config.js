@@ -11,7 +11,10 @@ export default {
       boxShadow: {
         lightMode: "0px 5px 30px 0px #5091dd",
         darkMode: "0px 5px 10px 0px #ff65001a",
+        logInShadow:"0px 4px 8.3px 0px #9BA8BA",
+        logInDarkShadow: "0px 4px 8.3px 0px #FF65005C 36%"
       },
+      
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

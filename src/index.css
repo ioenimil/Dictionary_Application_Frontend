@@ -82,6 +82,10 @@
   background-color: #298DFF;
  
 }
+.custom-checkbox-dark:checked::before {
+  background-color:  orange;
+ 
+}
 @layer base {
   * {
     @apply border-border;
