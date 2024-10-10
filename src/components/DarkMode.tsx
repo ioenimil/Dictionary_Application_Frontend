@@ -35,16 +35,15 @@ const DarkMode = () => {
     }
   };
   return (
-    <div className="hidden h-mobileHeight w-[79.99px] items-center gap-5 md:flex">
+    <div className="hidden h-mobileHeight w-[79.99px] items-center md:flex md:gap-4 lg:gap-3">
       <img
         onClick={handleSwitchTheme}
-        className="h-mobileHeight w-[40px] cursor-pointer"
+        className="h-mobileHeight w-10 cursor-pointer"
         src={theme === "dark" ? darkModeSwitch : lightModeSwitch}
         alt={theme === "dark" ? "Switch to dark mode" : "Switch to light mode"}
       />
       <img
-        onClick={handleSwitchTheme}
-        className="h-mobileHeight] w-[19.99px] cursor-pointer"
+        className="h-mobileHeight] w-[19.99px]"
         src={theme === "dark" ? darkModeMoon : lightModeMoon}
         alt={theme === "dark" ? "darkModeMoon" : "lightModeMoon"}
       />
