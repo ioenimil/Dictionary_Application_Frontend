@@ -28,6 +28,7 @@ export default {
         darkBg: " #1E1E1E",
         grayBg: "#E9E9E9",
         textGrey: " #757575",
+        blueBg: "#298DFF",
 
         popover: {
           DEFAULT: "hsl(var(--popover))",

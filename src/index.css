@@ -61,6 +61,27 @@
     --chart-5: 340 75% 55%;
   }
 }
+.custom-placeholder::placeholder {
+    color:  #CDCDCD;
+;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19.36px;
+  letter-spacing: -0.154px;
+  text-align: left;
+   
+}
+.custom-checkbox {
+ 
+  border: 2px solid #298DFF;
+  border-radius: 50%; 
+  outline: none;
+  cursor: pointer;
+}
+.custom-checkbox:checked::before {
+  background-color: #298DFF;
+ 
+}
 @layer base {
   * {
     @apply border-border;
