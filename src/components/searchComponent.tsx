@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import { WordNotFoundError, WordResult } from "@/types";
+import { ErrorData } from "@/errorData";
 
 interface Props {
   setResults: React.Dispatch<React.SetStateAction<WordResult[]>>;
@@ -31,20 +32,17 @@ const SearchComponent: React.FC<Props> = ({
       setError("");
       const word = searchedWord.toLowerCase();
       setSearchedWord("");
-
       try {
         const response = await fetch(
-          `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
+          `${import.meta.env.VITE_DICTIONARY_API}/${word}`
         );
-
         if (!response.ok) {
           const errorData: WordNotFoundError = await response.json();
 
           setWordNotFoundError({
-            title: errorData.title || "No Definitions Found",
-            message: errorData.message || "Sorry, no definitions found.",
-            resolution:
-              errorData.resolution || "Try again later or check the web.",
+            title: errorData.title || ErrorData.sorryWordNotFound,
+            message: errorData.message || ErrorData.sorryWordNotFound,
+            resolution: errorData.resolution || ErrorData.tryAgainMessage,
           });
 
           return;
@@ -53,7 +51,10 @@ const SearchComponent: React.FC<Props> = ({
         const data: WordResult[] = await response.json();
         setResults(data);
       } catch (error) {
-        const errorMessage = (error instanceof Error) ? error.message : "Something went wrong. Please try again.";
+        const errorMessage =
+          error instanceof Error
+            ? error.message
+            : "Something went wrong. Please try again.";
         setWordNotFoundError({
           title: "Error",
           message: errorMessage,

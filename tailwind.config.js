@@ -30,6 +30,7 @@ export default {
         darkBg:' #1E1E1E',
         grayBg:"#F4F4F4",
         searchBgDarkMode:"#3F3F3F",
+        textGray:"#757575",
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
