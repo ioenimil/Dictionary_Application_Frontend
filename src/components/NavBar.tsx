@@ -38,14 +38,12 @@ const NavBar = () => {
         {!showNav && (
           <img
             onClick={handleShowNav}
-            className="md:hidden cursor-pointer w-[18px] h-[12px] text-[#000000]"
+            className="md:hidden dark:text-white cursor-pointer w-[18px] h-[12px] text-[#000000]"
             src={menuIcon}
             alt="navMenuIcon"
           />
         )}
       </div>
-
-      {/* SideNav */}
       {showNav && <SideNav showNav={showNav} setShowNav={setShowNav} />}
     </div>
   );

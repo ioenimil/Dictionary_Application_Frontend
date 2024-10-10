@@ -26,8 +26,8 @@ const SideNav = ({ setShowNav, showNav }: Props) => {
         ${showNav ? "translate-x-0" : "translate-x-full"}`}
       >
         {/* Close button */}
-        <div className="w-full flex items-center justify-end p-4">
-          <IoClose onClick={() => setShowNav(false)} className="cursor-pointer" />
+        <div className="w-full dark:text-global_orange flex items-center justify-end p-4">
+          <IoClose  onClick={() => setShowNav(false)} className="cursor-pointer" />
         </div>
 
         {/* Content */}
