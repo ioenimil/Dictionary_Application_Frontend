@@ -1,10 +1,10 @@
 import bookIcon from "../assets/iconoir_book.svg";
 import userIcon from "../assets/userIcon.svg";
-import menuIcon from "../assets/menuIcon.svg";
 import Dropdown from "./Dropdown";
 import { useState } from "react";
 import SideNav from "./SideNav";
 import DarkMode from "./DarkMode";
+import { IoMdMenu } from "react-icons/io";
 
 const NavBar = () => {
   const [showNav, setShowNav] = useState<boolean>(false);
@@ -24,7 +24,7 @@ const NavBar = () => {
         <div className="md:w-[120px] hidden md:block">
           <Dropdown />
         </div>
-        <span className="w-[1px] md:mr-2 lg:mr-2 h-8 bg-grayBg block"></span>
+        <span className="w-[1px] hidden md:mr-2 lg:mr-2 h-8 bg-grayBg md:block"></span>
         <DarkMode showNav={showNav} />
 
         <p className="hidden bg-[#D3E3F7] md:w-[40px] md:h-[40px] md:flex items-center justify-center rounded-full">
@@ -36,11 +36,9 @@ const NavBar = () => {
         </p>
 
         {!showNav && (
-          <img
+          <IoMdMenu
             onClick={handleShowNav}
-            className="md:hidden dark:text-white cursor-pointer w-[18px] h-[12px] text-[#000000]"
-            src={menuIcon}
-            alt="navMenuIcon"
+            className="md:hidden text-[#000000] dark:text-white  cursor-pointer text-xl "
           />
         )}
       </div>
