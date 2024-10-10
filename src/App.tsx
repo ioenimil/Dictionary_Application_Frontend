@@ -1,5 +1,5 @@
 import "./App.css";
-import Hero from "./components/Hero";
+import Hero from "./components/HeroComponent";
 function App() {
   return (
     <main className=" h-screen md:h-0  dark:bg-darkBg bg-white">
