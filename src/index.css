@@ -14,7 +14,7 @@
 }
 .scrollbar-thin::-webkit-scrollbar-thumb {
   background-color: #B3B3B3;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 .scrollbar-thin::-webkit-scrollbar-track {
   background: transparent;

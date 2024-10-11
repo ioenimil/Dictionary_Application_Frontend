@@ -5,6 +5,7 @@ import { useState } from "react";
 import DarkMode from "./DarkMode";
 import SideNav from "./SideNav";
 import { IoMdMenu } from "react-icons/io";
+import { FaUser } from "react-icons/fa";
 const NavBar = () => {
   const [showNav, setShowNav] = useState<boolean>(false);
   const handleShowNav = () => {
@@ -23,20 +24,12 @@ const NavBar = () => {
         </div>
         <span className= " hidden w-[1px] md:mr-2 lg:mr-2 h-8 bg-grayBg md:block"></span>
         <DarkMode showNav={showNav} />
-        <p className="hidden bg-[#D3E3F7] md:w-[40px] md:h-[40px] md:flex items-center justify-center rounded-full">
-          <img
-            className="hidden md:block md:w-[28.43px] md:h-[15.07px]"
-            src={userIcon}
-            alt="userIcon"
-          />
+        <p className="hidden bg-[#D3E3F7] dark:bg-global_orange md:w-[40px] md:h-[40px] md:flex items-center justify-center rounded-full">
+          <button>
+          <FaUser className=" dark:text-white text-xl text-global_blue" />
+          </button>
         </p>
         {!showNav && (
-          // <img
-          //   onClick={handleShowNav}
-          //   className="md:hidden dark:text-white cursor-pointer w-[18px] h-[12px] text-[#000000]"
-          //   src={menuIcon}
-          //   alt="navMenuIcon"
-          // />
           <IoMdMenu onClick={handleShowNav} className="md:hidden dark:text-white cursor-pointer text-2xl text-[#000000]" />
         )}
       </div>

@@ -25,9 +25,11 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         global_orange: "#FF6500",
+        global_red:"#FF5252",
         darkBg:' #1E1E1E',
         grayBg:"#E9E9E9",
         global_blue:"#298DFF",
+        searchBgDarkMode:"#3F3F3F",
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",

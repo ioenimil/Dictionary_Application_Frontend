@@ -1,3 +1,4 @@
+import { ErrorData } from "../errorData";
 import { ChangeEvent, useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import { WordNotFoundError, WordResult } from "types";
@@ -31,16 +32,15 @@ const SearchComponent: React.FC<Props> = ({
       const word = searchedWord.toLowerCase();
       setSearchedWord("");
       try {
-        const response = await fetch(
-          `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
-        );
+        const response = await fetch(`${import.meta.env.VITE_DICTIONARY_API}/${word}`);
+
         if (!response.ok) {
           const errorData: WordNotFoundError = await response.json();
           setWordNotFoundError({
-            title: errorData.title || "No Definitions Found",
-            message: errorData.message || "Sorry, no definitions found.",
+            title: errorData.title || ErrorData.noDefinitionError,
+            message: errorData.message || ErrorData.sorryDefnitionError,
             resolution:
-              errorData.resolution || "Try again later or check the web.",
+              errorData.resolution || ErrorData.tryAgainError,
           });
           return;
         }
@@ -65,7 +65,7 @@ const SearchComponent: React.FC<Props> = ({
         <input
           value={searchedWord}
           onChange={handleSearchChange}
-          className={`pl-5 w-full caret-global_blue   dark:caret-global_orange font-semibold rounded-lg h-full bg-transparent outline-none  placeholder:dark:text-[#FFFFFF]
+          className={`pl-5 w-full caret-global_blue dark:text-white   dark:caret-global_orange font-semibold rounded-lg h-full bg-transparent outline-none  placeholder:dark:text-white
             ${
               error
                 ? "border-global_orange  border-[1px]"
