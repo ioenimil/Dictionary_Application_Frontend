@@ -64,6 +64,17 @@ const NavBar: React.FC = () => {
         {!showNav && (          
            <IoMdMenu onClick={handleShowNav} className="md:hidden dark:text-white cursor-pointer text-2xl text-[#000000]" />
          )}
+        {/* <p className="hidden bg-[#D3E3F7] md:w-[40px] md:h-[40px] md:flex items-center justify-center rounded-full">
+          <img
+            className="hidden md:block md:w-[28.43px] md:h-[15.07px]"
+            src={userIcon}
+            alt="userIcon"
+          />
+        </p> */}
+        {!showNav && (
+         
+          <IoMdMenu onClick={handleShowNav} className="md:hidden dark:text-white cursor-pointer text-2xl text-[#000000]" />
+        )}
       </div>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <div ref={modalRef}>

@@ -32,7 +32,8 @@ const SearchComponent: React.FC<Props> = ({
       setSearchedWord("");
       try {
         const response = await fetch(
-          `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
+          `${import.meta.env.VITE_APP_DICTIONARY_API}/${word}`
+
         );
         if (!response.ok) {
           const errorData: WordNotFoundError = await response.json();
