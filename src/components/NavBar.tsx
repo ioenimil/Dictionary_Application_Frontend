@@ -31,12 +31,7 @@ const NavBar = () => {
           />
         </p>
         {!showNav && (
-          // <img
-          //   onClick={handleShowNav}
-          //   className="md:hidden dark:text-white cursor-pointer w-[18px] h-[12px] text-[#000000]"
-          //   src={menuIcon}
-          //   alt="navMenuIcon"
-          // />
+         
           <IoMdMenu onClick={handleShowNav} className="md:hidden dark:text-white cursor-pointer text-2xl text-[#000000]" />
         )}
       </div>

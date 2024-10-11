@@ -8,7 +8,7 @@ interface Props {
 
 const WordInfo: React.FC<Props> = ({ results }) => {
   return (
-    <div className="mt-6 bg-red-600 ">
+    <div className="mt-6  ">
       <PronounceWord results={results} />
       <PartOfSpeech results={results} />
     </div>
