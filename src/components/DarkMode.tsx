@@ -21,7 +21,6 @@ const DarkMode = ({ showNav }: Props) => {
         "(prefers-color-scheme: light)"
       ).matches;
       const newTheme = prefersLight ? "light" : "dark";
-      console.log(prefersLight);
       applyTheme(newTheme);
       localStorage.setItem("theme", newTheme);
     }

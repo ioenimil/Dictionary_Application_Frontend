@@ -1,14 +1,16 @@
-
 import React from "react";
-import { PartOfSpeechType} from "types";
+import { PartOfSpeechType } from "types";
 
-const PartOfSpeech: React.FC<PartOfSpeechType> = ({ results}) => {
+const PartOfSpeech: React.FC<PartOfSpeechType> = ({ results }) => {
   return (
     <>
       {results.map((result) => {
         const { meanings, sourceUrls } = result;
         return (
-          <div className=" " key={result.word}>
+          <div
+            className="max-h-[60vh] overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-500 dark:scrollbar-thumb-gray-300"
+            key={result.word}
+          >
             {meanings.map((meaning, index) => (
               <div className="mt-3" key={index}>
                 <div className="flex items-center text-lg font-bold">
@@ -32,7 +34,10 @@ const PartOfSpeech: React.FC<PartOfSpeechType> = ({ results}) => {
                   <div className="mt-3 flex items-center flex-wrap gap-2">
                     <p className="text-[#757575] text-sm">Synonyms:</p>
                     {meaning.synonyms.map((synonym) => (
-                      <p key={synonym} className="text-blue-600 dark:text-global_orange">
+                      <p
+                        key={synonym}
+                        className="text-blue-600 dark:text-global_orange"
+                      >
                         {synonym}
                       </p>
                     ))}
@@ -41,7 +46,7 @@ const PartOfSpeech: React.FC<PartOfSpeechType> = ({ results}) => {
               </div>
             ))}
             {sourceUrls.length > 0 && (
-              <div className="mt-5  flex items-center gap-5">
+              <div className="mt-5 flex items-center gap-5">
                 <p className="text-[#757575] text-sm">Source:</p>
                 {sourceUrls.map((url, index) => (
                   <a
