@@ -1,13 +1,11 @@
 import NavBar from "./NavBar";
-import Search from "./SearchComponent";
-
+import SearchContent from "./SearchContent";
 const HeroComponent = () => {
   return (
-    <div className="m-auto h-full w-[326.99px] pt-8 md:w-[689px] md:pt-[58px] lg:w-[736.99px]">
+    <div className="   w-[329px] md:w-[689px]  lg:w-[739px] h-full   m-auto ">
       <NavBar />
-      <Search />
+      <SearchContent />
     </div>
   );
 };
-
 export default HeroComponent;
