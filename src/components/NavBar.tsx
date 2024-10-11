@@ -70,10 +70,6 @@ const NavBar: React.FC = () => {
             alt="userIcon"
           />
         </p> */}
-        {!showNav && (
-         
-          <IoMdMenu onClick={handleShowNav} className="md:hidden dark:text-white cursor-pointer text-2xl text-[#000000]" />
-        )}
       </div>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <div ref={modalRef}>
@@ -133,11 +129,11 @@ const NavBar: React.FC = () => {
             </div>
 
             <button
-              type="submit"
-              className="h-[50px] w-[356px] rounded-2xl bg-blueBg px-4 py-2 text-white dark:bg-orange"
-            >
-              Log In
-            </button>
+          className="hidden h-[43px] w-full items-center justify-center rounded-2xl bg-[#298DFF] text-white dark:bg-orange md:flex"
+          onClick={openModal}
+        >
+          <span className="text-center text-base font-medium">Log In</span>
+        </button>
           </form>
         </div>
       </Modal>

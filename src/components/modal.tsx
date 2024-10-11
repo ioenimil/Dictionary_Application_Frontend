@@ -12,7 +12,7 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center backdrop-blur-sm">
+    <div className="fixed z-10 inset-0 flex items-center justify-center backdrop-blur-sm">
       <div className="relative h-[452px] w-[402px] rounded-xl bg-white shadow-logInShadow dark:bg-darkBg dark:shadow-darkMode">
         <div className="ml-6 mt-10 h-[348px] w-[356px] gap-4">
           <button

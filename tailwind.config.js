@@ -31,6 +31,7 @@ export default {
         darkBg:' #1E1E1E',
         grayBg:"#E9E9E9",
         global_blue:"#298DFF",
+        global_red:"#FF5252",
         orange: "#FF6500",
         grayBg: "#E9E9E9",
         textGrey: " #757575",
