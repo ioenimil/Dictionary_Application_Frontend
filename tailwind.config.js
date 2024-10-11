@@ -4,14 +4,17 @@ export default {
   darkMode: "class",
   theme: {
     extend: {
-		height: {
-			mobileHeight:'h-[20px]',
-      tabletHeight:'h-[36px]'
-		},
-    boxShadow: {
-      'lightMode': '0px 5px 30px 0px #5091dd',
-      'darkMode': '0px 5px 10px 0px #ff65001a', 
-    },
+      height: {
+        mobileHeight: "h-[20px]",
+        tabletHeight: "h-[36px]",
+      },
+      boxShadow: {
+        lightMode: "0px 5px 30px 0px #5091dd",
+        darkMode: "0px 5px 10px 0px #ff65001a",
+        logInShadow:"0px 4px 8.3px 0px #9BA8BA",
+        logInDarkShadow: "0px 4px 8.3px 0px #FF65005C 36%"
+      },
+      
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -25,8 +28,11 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         orange: "#FF6500",
-        darkBg:' #1E1E1E',
-        grayBg:"#E9E9E9",
+        darkBg: " #1E1E1E",
+        grayBg: "#E9E9E9",
+        textGrey: " #757575",
+        blueBg: "#298DFF",
+
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
