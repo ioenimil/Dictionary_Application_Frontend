@@ -1,5 +1,4 @@
 import bookIcon from "@assets/iconoir_book.svg";
-import navMenuIcon from "@assets/navMenuIcon.svg";
 import React, { useEffect, useRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -49,8 +48,8 @@ const NavBar: React.FC = () => {
         src={bookIcon}
         alt="book"
       />
-      <div className="flex h-8 items-center gap-6 md:w-[275px] md:gap-2 lg:h-[43px] lg:w-[306.99px] lg:justify-end">
-        <div className="hidden md:block lg:w-[120px]">
+      <div className="md:w-[275px] lg:w-[270px] h-8 flex items-center lg:justify-end md:gap-2">
+        <div className="md:w-[120px] hidden md:block">
           <Dropdown />
         </div>
         <span className= " hidden w-[1px] md:mr-2 lg:mr-2 h-8 bg-grayBg md:block"></span>
