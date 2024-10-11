@@ -30,6 +30,7 @@ export default {
         orange: "#FF6500",
         grayBg: "#E9E9E9",
         textGrey: " #757575",
+        global_orange: "#FF6500",
         darkBg:' #1E1E1E',
         global_blue:"#298DFF",
         popover: {

@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Hero from "./components/HeroComponent";
 import Users from "./components/Users";
 import Organizations from "./components/Organizations";
 import Settings from "@components/Settings";
 import Dashboard from "@components/Dashboard";
+import HeroComponent from "@components/HeroComponent";
 
 
 function App() {
@@ -11,10 +11,7 @@ function App() {
     <Router>
       <main className="h-screen w-screen bg-white dark:bg-darkBg">
         <Routes>
-          {/* Route for Hero Component */}
-          <Route path="/" element={<Hero />} />
-
-          {/* Nested Dashboard Routes */}
+          <Route path="/" element={<HeroComponent />} />
           <Route path="/dashboard" element={<Dashboard />}>
           <Route path="home" element={<Users />} />
             <Route path="wordlist" element={<Users />} />

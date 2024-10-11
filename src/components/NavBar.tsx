@@ -2,9 +2,12 @@ import bookIcon from "@assets/iconoir_book.svg";
 import navMenuIcon from "@assets/navMenuIcon.svg";
 import React, { useEffect, useRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import DarkMode from "./DarkMode";
+
 import Dropdown from "./Dropdown";
 import Modal from "./modal";
+import DarkMode from "./DarkMode";
+import { IoMdMenu } from "react-icons/io";
+import SideNav from "./SideNav";
 
 const NavBar: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,7 +16,10 @@ const NavBar: React.FC = () => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
   const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
-
+  const [showNav, setShowNav] = useState<boolean>(false);
+  const handleShowNav = () => {
+    setShowNav(true);
+  };
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -35,10 +41,11 @@ const NavBar: React.FC = () => {
     };
   }, [isModalOpen]);
 
+ 
   return (
-    <div className="gap-26 flex h-8 w-[326px] items-center justify-between md:h-tabletHeight md:w-[689px] lg:w-[736.99px]">
+    <div className="relative gap-26 mt-8 w-[326px] h-10 md:w-[689px] md:h-tabletHeight lg:w-[736.99px] flex items-center justify-between">
       <img
-        className="h-[31.56px] w-[28.05px] md:h-tabletHeight md:w-[32px]"
+        className="w-[28.05px] h-[31.56px] md:w-[32px] md:h-tabletHeight"
         src={bookIcon}
         alt="book"
       />
@@ -46,21 +53,18 @@ const NavBar: React.FC = () => {
         <div className="hidden md:block lg:w-[120px]">
           <Dropdown />
         </div>
-        <span className="block h-8 w-[1px] bg-grayBg md:mr-2 lg:mr-2"></span>
-        <DarkMode />
+        <span className= " hidden w-[1px] md:mr-2 lg:mr-2 h-8 bg-grayBg md:block"></span>
+        <DarkMode showNav={showNav} />
         <button
           className="hidden h-[43px] w-[84px] items-center justify-center rounded-2xl bg-[#298DFF] text-white dark:bg-orange md:flex"
           onClick={openModal}
         >
           <span className="text-center text-base font-medium">Log In</span>
         </button>
-        <img
-          className="h-[18.68px] text-[#000000] md:hidden"
-          src={navMenuIcon}
-          alt="navMenuIcon"
-        />
+        {!showNav && (          
+           <IoMdMenu onClick={handleShowNav} className="md:hidden dark:text-white cursor-pointer text-2xl text-[#000000]" />
+         )}
       </div>
-
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <div ref={modalRef}>
           <h2 className="mb-4 text-center text-3xl font-medium text-textGrey">
@@ -127,8 +131,37 @@ const NavBar: React.FC = () => {
           </form>
         </div>
       </Modal>
+      {showNav && <SideNav showNav={showNav} setShowNav={setShowNav} />}
     </div>
   );
 };
 
 export default NavBar;
+//       <div className="md:w-[275px] lg:w-[270px] h-8 flex items-center lg:justify-end md:gap-2">
+//         <div className="md:w-[120px] hidden md:block">
+//           <Dropdown />
+//         </div>
+//         <span className= " hidden w-[1px] md:mr-2 lg:mr-2 h-8 bg-grayBg md:block"></span>
+//         <DarkMode showNav={showNav} />
+//         <p className="hidden bg-[#D3E3F7] md:w-[40px] md:h-[40px] md:flex items-center justify-center rounded-full">
+//           <img
+//             className="hidden md:block md:w-[28.43px] md:h-[15.07px]"
+//             src={userIcon}
+//             alt="userIcon"
+//           />
+//         </p>
+//         {!showNav && (
+//           // <img
+//           //   onClick={handleShowNav}
+//           //   className="md:hidden dark:text-white cursor-pointer w-[18px] h-[12px] text-[#000000]"
+//           //   src={menuIcon}
+//           //   alt="navMenuIcon"
+//           // />
+//           <IoMdMenu onClick={handleShowNav} className="md:hidden dark:text-white cursor-pointer text-2xl text-[#000000]" />
+//         )}
+//       </div>
+//       {showNav && <SideNav showNav={showNav} setShowNav={setShowNav} />}
+//     </div>
+//   );
+// };
+// export default NavBar;
