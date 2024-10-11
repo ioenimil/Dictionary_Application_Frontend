@@ -37,7 +37,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, className = "" }) => {
         {isPlaying ? (
           <FaPause className="h-5 w-5 justify-items-center text-white" />
         ) : (
-          <FaPlay className="text-primaryBlue h-5 w-5 justify-items-center" />
+          <FaPlay className="h-5 w-5 justify-items-center text-primaryBlue" />
         )}
       </button>
     </div>

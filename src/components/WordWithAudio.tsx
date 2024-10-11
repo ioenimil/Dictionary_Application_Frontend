@@ -11,8 +11,8 @@ const WordWithAudio: React.FC = () => {
   return (
     <div className="flex items-center justify-between md:mt-10 md:w-[689px] lg:w-[736px]">
       <div>
-        <h1 className="mb-4 text-[64px] font-bold leading-[67.14px]">{word}</h1>
-        <span className="text-primaryBlue h-[29] w-[96px] text-[24px] font-normal italic leading-[20.05px]">
+        <h1 className="mb-4 text-6xl font-bold leading-[67.14px]">{word}</h1>
+        <span className="h-[29] w-24 text-2xl font-normal italic leading-[20.05px] text-primaryBlue">
           {phonetic}
         </span>
       </div>
