@@ -30,6 +30,7 @@ export default {
         global_orange: "#FF6500",
         darkBg:' #1E1E1E',
         grayBg:"#E9E9E9",
+        searchBgDarkMode:"#3F3F3F",
         global_blue:"#298DFF",
         global_red:"#FF5252",
         orange: "#FF6500",
