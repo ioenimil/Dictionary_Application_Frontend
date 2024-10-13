@@ -11,7 +11,8 @@ import bookIcon from '../assets/iconoir_book.svg';
 
 const Dashboard = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
-const location = useLocation();
+  const location = useLocation();
+  
   const navItems = [
     { title: "Home", icon: <HiOutlineHome />, path: "/dashboard/home" },
     { title: "Word List", icon: <IoText />, path: "/dashboard/wordlist" },
@@ -20,10 +21,8 @@ const location = useLocation();
   ];
 
   return (
-    <div className="flex h-screen">
-     
+    <div className="flex h-screen overflow-hidden">
       <aside className={`relative flex flex-col h-full p-4 pt-8 bg-grayBg dark:bg-black transition-width duration-300 ${isSidebarOpen ? 'w-64' : 'w-20'}`}>
-      
         <MdKeyboardArrowLeft 
           onClick={() => setSidebarOpen(!isSidebarOpen)} 
           className="absolute bottom-1/3 -right-2 w-5 h-5 cursor-pointer text-white bg-global_blue dark:bg-global_orange rounded-full" 
@@ -32,14 +31,16 @@ const location = useLocation();
           onClick={() => setSidebarOpen(true)} 
           className="absolute bottom-1/4 -right-2 w-5 h-5 cursor-pointer text-white bg-global_blue dark:bg-global_orange rounded-full" 
         />
-        
         <div className="px-3">
           <img className="w-[30.14px]" src={bookIcon} alt="bookIcon" />
         </div>
-
         <ul className="mt-10">
           {navItems.map((item, index) => (
-            <li key={index} className={`rounded-md hover:bg-global_blue dark:hover:bg-global_orange hover:text-white dark:text-white ${location.pathname === item.path ? 'bg-global_orange dark:bg-global_orange text-white' : ''}`}>
+            <li 
+              key={index} 
+              className={`rounded-md hover:bg-global_blue dark:hover:bg-global_orange hover:text-white dark:text-white 
+              ${location.pathname === item.path ? 'bg-global_blue dark:bg-global_orange text-white' : ''}`}
+            >
               <Link to={item.path} className="flex items-center gap-4 mt-2 px-3 py-3">
                 <span className="text-2xl">{item.icon}</span>
                 <span className={`duration-200 origin-left ${!isSidebarOpen && 'hidden'}`}>
@@ -49,12 +50,9 @@ const location = useLocation();
             </li>
           ))}
         </ul>
-
-        
         <div className="flex flex-col mt-2 items-center justify-center px-3 py-3 rounded-md hover:bg-global_blue dark:hover:bg-transparent">
           <DarkMode open={isSidebarOpen} />
         </div>
-
         <div className="absolute bottom-16 rounded-md">
           <Link to="/dashboard/settings" className="flex items-center gap-4 px-3 py-3">
             <FiSettings className="text-2xl" />
@@ -65,14 +63,16 @@ const location = useLocation();
         </div>
       </aside>
 
-      <div className="flex-1">
+      <div className="flex-1 overflow-hidden">
         <nav className="flex items-center justify-end gap-3 py-4 pr-10 bg-grayBg dark:bg-black">
           <span className="text-sm dark:text-white">Hi Sam</span>
           <div className="w-10 h-10 flex items-center justify-center text-xl bg-faded_global_blue dark:bg-global_orange text-blueBg dark:text-white rounded-full">
             <FaUser />
           </div>
         </nav>
-        <Outlet />
+        <div className="h-full overflow-y-auto">
+          <Outlet />
+        </div>
       </div>
     </div>
   );
