@@ -36,6 +36,7 @@ export default {
         grayBg: "#E9E9E9",
         textGrey: " #757575",
         blueBg: "#298DFF",
+        faded_global_blue:"#D3E3F7",
 
         popover: {
           DEFAULT: "hsl(var(--popover))",
