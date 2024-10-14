@@ -4,7 +4,8 @@ import Organizations from "./components/Organizations";
 import Settings from "@components/Settings";
 import Dashboard from "@components/Dashboard";
 import HeroComponent from "@components/HeroComponent";
-
+import WordList from "@components/WordList";
+import Home from "@components/Home";
 
 function App() {
   return (
@@ -13,11 +14,12 @@ function App() {
         <Routes>
           <Route path="/" element={<HeroComponent />} />
           <Route path="/dashboard" element={<Dashboard />}>
-          <Route path="home" element={<Users />} />
-            <Route path="wordlist" element={<Users />} />
+            <Route index element={<Home />} />
+            <Route path="home" element={<Home />} />
+            <Route path="wordlist" element={<WordList />} />
             <Route path="users" element={<Users />} />
-            <Route path="organizations" element={<Organizations/>} />
-            <Route path="settings" element={<Settings/>} />
+            <Route path="organizations" element={<Organizations />} />
+            <Route path="settings" element={<Settings />} />
           </Route>
         </Routes>
       </main>

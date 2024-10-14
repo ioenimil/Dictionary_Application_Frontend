@@ -1,55 +1,78 @@
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
-import { Link, Outlet } from "react-router-dom";
-import bookIcon from '../assets/iconoir_book.svg'
-
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { HiOutlineHome } from "react-icons/hi";
 import { FiEdit, FiSettings } from "react-icons/fi";
 import { IoText } from "react-icons/io5";
 import { CgOrganisation } from "react-icons/cg";
+import { FaUser } from "react-icons/fa";
+import DarkMode from "./DarkMode";
+import bookIcon from '../assets/iconoir_book.svg';
+
 const Dashboard = () => {
-    const navData = [
-        {title:"Home",icon: <HiOutlineHome/>, path:"/dashboard/home"},
-        {title:"Word List",icon: <IoText/>, path:"/dashboard/wordlist"},
-        {title:"Users",icon: <FiEdit/>, path:"/dashboard/users"},
-        {title:"Organization",icon: <CgOrganisation/>, path:"/dashboard/organizations"},
-    ]
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const location = useLocation();
+  
+  const navItems = [
+    { title: "Home", icon: <HiOutlineHome />, path: "/dashboard/home" },
+    { title: "Word List", icon: <IoText />, path: "/dashboard/wordlist" },
+    { title: "Users", icon: <FiEdit />, path: "/dashboard/users" },
+    { title: "Organization", icon: <CgOrganisation />, path: "/dashboard/organizations" },
+  ];
 
-    const [open,setOpen] = useState(true);
   return (
-    <div className="flex h-screen ">
-    
-      <aside className={` ${open ? `w-64`:`w-20`} h-full    -5 pt-8 duration-300 relative bg-grayBg flex flex-col p-4`}>
-      <MdKeyboardArrowLeft onClick={()=>setOpen(!open)}  className=" text-white absolute cursor-pointer bg-global_blue rounded-full -right-3 bottom-[35%] w-5 h-5 border-2" />
-      <MdKeyboardArrowRight onClick={()=>setOpen(true)} className=" text-white absolute cursor-pointer bg-global_blue rounded-full -right-3 bottom-[45%] h-5 w-5 border-2" />
-      <div className="px-3 ">    
-        <img  className="  w-[30.14px]" src={bookIcon} alt="bookIcon" />
-      </div>
-        <div className=" mt-10">
-        <ul className="pt-6">
-            {
-                navData.map((data,index)=>(
-                    <li key={index} className="  hover:bg-global_blue hover:text-white  rounded-md flex items-center   gap-x-4 px-3 py-3">
-            <span className={`text-2xl`}>{data.icon}</span>
-             <Link to={data.path} className={`${!open && `hidden`} origin-left duration-200`}>
-            {data.title}
-          </Link>
-                    </li>
-                ))
-            }
-           
-        </ul>
+    <div className="flex h-screen overflow-hidden">
+      <aside className={`relative flex flex-col h-full p-4 pt-8 bg-grayBg dark:bg-black transition-width duration-300 ${isSidebarOpen ? 'w-64' : 'w-20'}`}>
+        <MdKeyboardArrowLeft 
+          onClick={() => setSidebarOpen(!isSidebarOpen)} 
+          className="absolute bottom-1/3 -right-2 w-5 h-5 cursor-pointer text-white bg-global_blue dark:bg-global_orange rounded-full" 
+        />
+        <MdKeyboardArrowRight 
+          onClick={() => setSidebarOpen(true)} 
+          className="absolute bottom-1/4 -right-2 w-5 h-5 cursor-pointer text-white bg-global_blue dark:bg-global_orange rounded-full" 
+        />
+        <div className="px-3">
+          <img className="w-[30.14px]" src={bookIcon} alt="bookIcon" />
         </div>
-
-        <div className=" absolute bottom-16 flex mt-10 items-center gap-x-4 px-3 py-3">
-            <FiSettings className=" text-2xl"/>
-            <span className={`${!open && `hidden`} origin-left duration-200`} >Settings</span>
+        <ul className="mt-10">
+          {navItems.map((item, index) => (
+            <li 
+              key={index} 
+              className={`rounded-md hover:bg-global_blue dark:hover:bg-global_orange hover:text-white dark:text-white 
+              ${location.pathname === item.path ? 'bg-global_blue dark:bg-global_orange text-white' : ''}`}
+            >
+              <Link to={item.path} className="flex items-center gap-4 mt-2 px-3 py-3">
+                <span className="text-2xl">{item.icon}</span>
+                <span className={`duration-200 origin-left ${!isSidebarOpen && 'hidden'}`}>
+                  {item.title}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <div className="flex flex-col mt-2 items-center justify-center px-3 py-3 rounded-md hover:bg-global_blue dark:hover:bg-transparent">
+          <DarkMode open={isSidebarOpen} />
+        </div>
+        <div className="absolute bottom-16 rounded-md">
+          <Link to="/dashboard/settings" className="flex items-center gap-4 px-3 py-3">
+            <FiSettings className="text-2xl" />
+            <span className={`duration-200 origin-left ${!isSidebarOpen && 'hidden'}`}>
+              Settings
+            </span>
+          </Link>
         </div>
       </aside>
 
-     
-      <div className="flex-1 bg-gray-100 p-8">
-        <Outlet/>
+      <div className="flex-1 overflow-hidden">
+        <nav className="flex items-center justify-end gap-3 py-4 pr-10 bg-grayBg dark:bg-black">
+          <span className="text-sm dark:text-white">Hi Sam</span>
+          <div className="w-10 h-10 flex items-center justify-center text-xl bg-faded_global_blue dark:bg-global_orange text-blueBg dark:text-white rounded-full">
+            <FaUser />
+          </div>
+        </nav>
+        <div className="h-full overflow-y-auto">
+          <Outlet />
+        </div>
       </div>
     </div>
   );

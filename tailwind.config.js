@@ -32,12 +32,13 @@ export default {
         grayBg:"#E9E9E9",
         global_blue:"#298DFF",
         global_red:"#FF5252",
+        searchBgDarkMode:"#3F3F3F",
         orange: "#FF6500",
         grayBg: "#E9E9E9",
         textGrey: " #757575",
-        global_orange: "#FF6500",
-        darkBg:' #1E1E1E',
-        global_blue:"#298DFF",
+        blueBg: "#298DFF",
+        faded_global_blue:"#D3E3F7",
+
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
