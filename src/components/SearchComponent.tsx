@@ -66,10 +66,10 @@ const SearchComponent: React.FC<Props> = ({
         <input
           value={searchedWord}
           onChange={handleSearchChange}
-          className={`pl-5 w-full caret-global_blue   dark:caret-global_orange font-semibold rounded-lg h-full bg-transparent outline-none  placeholder:dark:text-[#FFFFFF]
+          className={`pl-5 w-full caret-global_blue dark:bg-searchBgDarkMode   dark:caret-global_orange font-semibold rounded-lg h-full bg-transparent outline-none  placeholder:dark:text-[#FFFFFF]
             ${
               error
-                ? "border-global_orange  border-[1px]"
+                ? "border-global_red  border-[1px]"
                 : " focus:border-global_blue focus:border-[1px]  dark:focus:border-global_orange"
             } focus:outline`}
           type="text"

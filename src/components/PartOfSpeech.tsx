@@ -8,7 +8,7 @@ const PartOfSpeech: React.FC<PartOfSpeechType> = ({ results }) => {
         const { meanings, sourceUrls } = result;
         return (
           <div
-            className="max-h-[60vh] overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-500 dark:scrollbar-thumb-gray-300"
+            className="max-h-[60vh] mt-2 overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-500 dark:scrollbar-thumb-gray-300"
             key={result.word}
           >
             {meanings.map((meaning, index) => (
