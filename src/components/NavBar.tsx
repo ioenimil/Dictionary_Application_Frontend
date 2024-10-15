@@ -37,14 +37,9 @@ const NavBar: React.FC = () => {
         const errorData = await response.json();
         throw new Error(errorData.message || 'An error occurred');
       }
-
       const result = await response.json();
-      const token = result.token;
+      const token = result.data.access_token;
       Cookies.set('token', token,{expires: 7});
-      
-      console.log("Login successful",result);
-
-    
       reset();
     } catch (error: any) {
       setErrorMessage(error.message);
