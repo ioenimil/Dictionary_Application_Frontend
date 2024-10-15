@@ -165,24 +165,24 @@ const WordListTable: React.FC = () => {
         onSort={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
       />
       <table className="mt-2 w-[1200px] divide-y divide-gray-500">
-        <thead className="h-[75px] bg-white">
+        <thead className="h-[75px] bg-white dark:bg-[#404040] dark:text-white">
           <tr>
-            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-black">
+            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-black dark:text-textGrey">
               Word
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-black">
+            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-black dark:text-textGrey">
               Part of Speech
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-black">
+            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-black dark:text-textGrey">
               Synonyms
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-black">
+            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-black dark:text-textGrey">
               Link
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-black"></th>
+            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-black dark:text-textGrey"></th>
           </tr>
         </thead>
-        <tbody className="h-[75px] divide-y divide-gray-200 bg-white">
+        <tbody className="h-[75px] divide-y divide-gray-200 bg-white dark:bg-[#404040]">
           {currentItems.map((word, index) => (
             <tr key={index} className="border-b border-gray-200">
               <td className="whitespace-nowrap px-6 py-4 text-sm text-textGrey">
