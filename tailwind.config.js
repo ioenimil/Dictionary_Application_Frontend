@@ -29,6 +29,8 @@ export default {
         global_red:"#FF5252",
         darkBg:' #1E1E1E',
         grayBg:"#F4F4F4",
+        grayText:"#757575",
+        blackText:"#2D2D2D",
         sideNavBg:"#F4F4F4",
         searchBgDarkMode:"#3F3F3F",
         popover: {
