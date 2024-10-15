@@ -46,8 +46,6 @@ const Dashboard = () => {
             <span className={`${!open && `hidden`} origin-left duration-200`} >Settings</span>
         </div>
       </aside>
-
-     
       <div className="flex-1 bg-gray-100 p-8">
         <Outlet/>
       </div>
