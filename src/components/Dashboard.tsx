@@ -22,7 +22,7 @@ const Dashboard = () => {
 
   return (
     <div className="flex h-screen overflow-hidden">
-      <aside className={`relative flex flex-col h-full p-4 pt-8 bg-grayBg dark:bg-black transition-width duration-300 ${isSidebarOpen ? 'w-64' : 'w-20'}`}>
+      <aside className={`relative flex flex-col h-full p-4 pt-8 bg-grayBg dark:bg-black transition-width duration-300 ${isSidebarOpen ? 'w-[240px]' : 'w-[80px]'}`}>
         <MdKeyboardArrowLeft 
           onClick={() => setSidebarOpen(!isSidebarOpen)} 
           className="absolute bottom-1/3 -right-2 w-5 h-5 cursor-pointer text-white bg-global_blue dark:bg-global_orange rounded-full" 
@@ -65,7 +65,6 @@ const Dashboard = () => {
 
       <div className="flex-1 overflow-hidden">
         <nav className="flex items-center justify-end gap-3 py-4 pr-10 bg-grayBg dark:bg-black">
-          <span className="text-sm dark:text-white">Hi Sam</span>
           <div className="w-10 h-10 flex items-center justify-center text-xl bg-faded_global_blue dark:bg-global_orange text-blueBg dark:text-white rounded-full">
             <FaUser />
           </div>
