@@ -226,7 +226,7 @@ const WordListTable: React.FC = () => {
         </tbody>
       </table>
 
-      <div className="ml-[403px] mt-4 flex h-[50px] w-[395px] items-center justify-center gap-9 rounded-3xl bg-white">
+      <div className="ml-[403px] mt-4 flex h-[50px] w-[395px] items-center justify-center gap-[10px] rounded-3xl bg-white">
         <button
           onClick={handlePreviousPage}
           disabled={currentPage === 1}
@@ -236,6 +236,7 @@ const WordListTable: React.FC = () => {
         >
           <FiChevronLeft size={24} />
         </button>
+
         {Array.from({ length: totalPages }, (_, i) => i + 1).map(
           (pageNumber) => (
             <button
@@ -251,14 +252,15 @@ const WordListTable: React.FC = () => {
             </button>
           ),
         )}
+
         <button
           onClick={handleNextPage}
           disabled={currentPage === totalPages}
-          className={`rounded-full py-1 ${
+          className={`rounded-full px-11 py-1 ${
             currentPage === totalPages ? "text-textGrey" : "text-black"
           }`}
         >
-          <FiChevronRight size={24} />
+          <FiChevronRight size={20} />
         </button>
       </div>
     </>

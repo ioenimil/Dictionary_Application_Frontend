@@ -1,5 +1,4 @@
 import WordListTable from "./wordListTable";
-
 const WordList = () => {
   return (
     <>

@@ -1,5 +1,5 @@
-import searchIcon from "@assets/Vector.svg";
 import React from "react";
+import searchIcon from "@assets/Vector.svg";
 
 interface WordListSearchComponentProps {
   searchTerm: string;
