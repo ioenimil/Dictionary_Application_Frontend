@@ -25,3 +25,8 @@ export interface WordNotFoundError {
  export  interface PartOfSpeechType {
     results: WordResult[];
   }
+
+  export interface IFormInputs {
+    email: string;
+    password: string;
+  }

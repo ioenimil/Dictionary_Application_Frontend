@@ -8,24 +8,22 @@ import { IoMdMenu } from "react-icons/io";
 import SideNav from "./SideNav";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Cookies from 'js-cookie';
+import { useNavigate } from "react-router-dom";
+import { Slide, toast } from "react-toastify";
+import { IFormInputs } from "types";
+import { getAppTheme } from "../lib/helper";
 
-
-
-interface IFormInputs {
-  email: string;
-  password: string;
-}
-const NavBar: React.FC = () => {
+const NavBar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
   const { register, handleSubmit, formState: { errors },reset } = useForm<IFormInputs>();
   const modalRef = useRef<HTMLDivElement>(null);
 
-  
+  const navigate = useNavigate(); 
   const onSubmit: SubmitHandler<IFormInputs> = async (data) => {
+  const theme = getAppTheme();
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/auth/login/', {
+      const response = await fetch(import.meta.env.VITE_APP_LOGIN, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -35,14 +33,27 @@ const NavBar: React.FC = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'An error occurred');
+        reset()
+        toast.error(errorData.message || 'An error occurred', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: theme,
+          transition: Slide,
+        });
       }
       const result = await response.json();
       const token = result.data.access_token;
+     
       Cookies.set('token', token,{expires: 7});
       reset();
-    } catch (error: any) {
-      setErrorMessage(error.message);
+      navigate('/dashboard'); 
+    } catch (error: string | any) {
+      throw new Error(error.message);
     }
   };
   const openModal = () => setIsModalOpen(true);
@@ -107,8 +118,8 @@ const NavBar: React.FC = () => {
         <input
           id="email"
           type="email"
-          {...register("email", { required: "Email is required", pattern: { value: /^\S+@\S+$/i, message: "Enter a valid email" } })}
-          className="custom-placeholder h-[50px] w-[356px] rounded-2xl border-[0.5px] p-4 dark:bg-darkBg"
+          {...register("email", { required: "Email is required", pattern: { value: /^\S+@\S+$/i, message: " Please enter a valid email address" } })}
+          className={` bg-transparent focus:outline-none outline-none h-[50px] w-[356px] ${errors.email ? "border-global_red" : ""} rounded-2xl border-[0.5px] p-4 dark:bg-darkBg`}
           placeholder="wadewarren@amalitech.org"
         />
         {errors.email && <p className="text-global_red mt-2 text-xs">{errors.email.message}</p>}
@@ -122,8 +133,8 @@ const NavBar: React.FC = () => {
           <input
             id="password"
             type={passwordVisible ? "text" : "password"}
-            {...register("password", { required: "Password is required", minLength: { value: 6, message: "Password must be at least 6 characters" } })}
-            className="custom-placeholder h-[50px] w-[356px] rounded-2xl border-[0.5px] p-4 pr-10 dark:bg-darkBg"
+            {...register("password", { required: "Password is required", minLength: { value: 6, message: "Password must be six or more characters" } })}
+            className={`custom-placeholder outline-none h-[50px] w-[356px] rounded-2xl ${errors.password ? "border-global_red" : ""} border-[0.5px] p-4 pr-10 dark:bg-darkBg`}
             placeholder="****************"
           />
           <button

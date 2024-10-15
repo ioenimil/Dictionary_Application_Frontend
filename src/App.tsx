@@ -7,6 +7,8 @@ import HeroComponent from "@components/HeroComponent";
 import Home from "@components/Home";
 import WordList from "@components/WordList";
 import ProtectedRoute from "@components/ProtectedRoute";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return (
     <Router>
@@ -25,6 +27,7 @@ function App() {
        </Route>
 </Routes>
         </div>
+        <ToastContainer/>
       </main>
     </Router>
   );
