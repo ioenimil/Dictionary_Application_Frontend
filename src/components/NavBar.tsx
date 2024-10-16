@@ -39,13 +39,13 @@ const NavBar: React.FC = () => {
     };
   }, [isModalOpen]);
   return (
-    <div className="relative gap-26 mt-8 w-[326px] h-10 md:w-[689px] md:h-tabletHeight lg:w-[736.99px] flex items-center justify-between">
+    <div className="  relative gap-26 mt-8 w-[326px] h-10 md:w-[689px] md:h-tabletHeight lg:w-[736.99px] flex items-center justify-between">
       <img
         className="w-[28.05px] h-[31.56px] md:w-[32px] md:h-tabletHeight"
         src={bookIcon}
         alt="book"
       />
-      <div className="md:w-[275px] lg:w-[270px] h-8 flex items-center lg:justify-end md:gap-2">
+      <div className="  md:w-[275px] lg:w-[310px] h-8 flex items-center lg:justify-end md:gap-2">
         <div className="md:w-[120px] hidden md:block">
           <Dropdown />
         </div>
