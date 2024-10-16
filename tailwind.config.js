@@ -28,6 +28,7 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        lightGrey: "#F4F4F4",
         global_orange: "#FF6500",
         darkBg: " #1E1E1E",
         grayBg: "#E9E9E9",
