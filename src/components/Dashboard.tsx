@@ -2,7 +2,7 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { HiOutlineHome } from "react-icons/hi";
-import { FiEdit, FiSettings } from "react-icons/fi";
+import { FiEdit, FiLogOut, FiSettings } from "react-icons/fi";
 import { IoText } from "react-icons/io5";
 import { CgOrganisation } from "react-icons/cg";
 import { FaUser } from "react-icons/fa";
@@ -11,6 +11,7 @@ import bookIcon from '../assets/iconoir_book.svg';
 
 const Dashboard = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const [showLogoutModal, setShowLogoutModal] = useState<boolean>(false);
   const location = useLocation();
   
   const navItems = [
@@ -23,14 +24,18 @@ const Dashboard = () => {
   return (
     <div className="flex h-screen overflow-hidden">
       <aside className={`relative flex flex-col h-full p-4 pt-8 bg-grayBg dark:bg-black transition-width duration-300 ${isSidebarOpen ? 'w-[240px]' : 'w-[80px]'}`}>
-        <MdKeyboardArrowLeft 
-          onClick={() => setSidebarOpen(!isSidebarOpen)} 
-          className="absolute bottom-1/3 -right-2 w-5 h-5 cursor-pointer text-white bg-global_blue dark:bg-global_orange rounded-full" 
-        />
-        <MdKeyboardArrowRight 
-          onClick={() => setSidebarOpen(true)} 
-          className="absolute bottom-1/4 -right-2 w-5 h-5 cursor-pointer text-white bg-global_blue dark:bg-global_orange rounded-full" 
-        />
+        {
+          isSidebarOpen ? (
+            <MdKeyboardArrowLeft
+              onClick={() => setSidebarOpen(!isSidebarOpen)} 
+              className="absolute bottom-1/3 -right-2 w-5 h-5 cursor-pointer text-white bg-global_blue dark:bg-global_orange rounded-full" 
+            />
+          ):(
+            <MdKeyboardArrowRight 
+              onClick={() => setSidebarOpen(!isSidebarOpen)} 
+              className="absolute bottom-1/3 -right-2 w-5 h-5 cursor-pointer text-white bg-global_blue dark:bg-global_orange rounded-full" 
+            />)
+        }
         <div className="px-3">
           <img className="w-[30.14px]" src={bookIcon} alt="bookIcon" />
         </div>
@@ -63,11 +68,17 @@ const Dashboard = () => {
         </div>
       </aside>
 
-      <div className="flex-1 overflow-hidden">
-        <nav className="flex items-center justify-end gap-3 py-4 pr-10 bg-grayBg dark:bg-black">
-          <div className="w-10 h-10 flex items-center justify-center text-xl bg-faded_global_blue dark:bg-global_orange text-blueBg dark:text-white rounded-full">
-            <FaUser />
+      <div className="  flex-1 overflow-hidden">
+        <nav className="  flex items-center justify-end gap-3 py-4 pr-10 bg-grayBg dark:bg-black">
+          <div className="w-10 h-10 cursor-pointer flex items-center justify-center text-xl bg-faded_global_blue dark:bg-global_orange text-blueBg dark:text-white rounded-full">
+            <FaUser onClick={() => setShowLogoutModal(!showLogoutModal)} />
           </div>
+          {
+            showLogoutModal && ( <div className=" px-3 py-2  rounded-sm dark:text-white dark:border-none shadow-lg border-[1px] border-gray-300 bg-white dark:bg-darkBg ">
+
+              <button className="flex items-center gap-1 text-sm font-semibold"> <FiLogOut className="text-lg " /> LogOut</button>
+            </div>)
+          }
         </nav>
         <div className="h-full overflow-y-auto">
           <Outlet />
