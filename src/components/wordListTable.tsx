@@ -104,13 +104,9 @@ const WordListTable: React.FC = () => {
     setWords(sampleWords);
   }, []);
 
-  const handleEdit = (index: number) => {
-    console.log(`Editing word at index: ${index}`);
-  };
+  const handleEdit = () => {};
 
   const handleDelete = (index: number) => {
-    console.log(`Deleting word at index: ${index}`);
-
     setWords(words.filter((_, i) => i !== index));
   };
 
