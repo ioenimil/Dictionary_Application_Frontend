@@ -42,8 +42,7 @@ const AdminAddPartOfSpeechSection: React.FC<
   };
 
   return (
-    <form
-      action=""
+    <div
       className="border-lightGrey mb-2 h-auto w-[1092px] rounded-xl border bg-white pl-5 hover:border-global_blue"
     >
       <div className="mb-5">
@@ -153,7 +152,7 @@ const AdminAddPartOfSpeechSection: React.FC<
           />
         </div>
       </div>
-    </form>
+    </div>
   );
 };
 
