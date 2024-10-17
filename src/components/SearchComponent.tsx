@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useRef } from "react"; // Import useRef
+import { ChangeEvent, useState, useRef } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import { WordNotFoundError, WordResult } from "types";
 
