@@ -6,6 +6,13 @@ interface FilterDropdownProps {
   handleFilterChange: (event: { target: { value: string } }) => void;
 }
 
+const options = [
+  { value: "", label: "Filter" },
+  { value: "noun", label: "Noun" },
+  { value: "verb", label: "Verb" },
+  { value: "adjective", label: "Adjective" },
+];
+
 const FilterDropdown: React.FC<FilterDropdownProps> = ({
   filter,
   handleFilterChange,
@@ -16,9 +23,9 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
-  const selectOption = (value: string, label: string) => {
-    setSelected(label);
-    handleFilterChange({ target: { value } });
+  const selectOption = (option: { value: string; label: string }) => {
+    setSelected(option.label);
+    handleFilterChange({ target: { value: option.value } });
     setIsOpen(false);
   };
 
@@ -52,30 +59,15 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
         <ul
           className={`absolute left-0 z-10 mt-1 rounded bg-white shadow-logInShadow transition-opacity duration-300 ease-out opacity-${isOpen ? 100 : 0}`}
         >
-          <li
-            className="cursor-pointer px-4 py-2 hover:bg-grayBg"
-            onClick={() => selectOption("", "Filter")}
-          >
-            All
-          </li>
-          <li
-            className="cursor-pointer px-4 py-2 hover:bg-grayBg"
-            onClick={() => selectOption("noun", "Noun")}
-          >
-            Noun
-          </li>
-          <li
-            className="cursor-pointer px-4 py-2 hover:bg-grayBg"
-            onClick={() => selectOption("verb", "Verb")}
-          >
-            Verb
-          </li>
-          <li
-            className="cursor-pointer px-4 py-2 hover:bg-grayBg"
-            onClick={() => selectOption("adjective", "Adjective")}
-          >
-            Adjective
-          </li>
+          {options.map((option) => (
+            <li
+              key={option.value}
+              className="cursor-pointer px-4 py-2 hover:bg-grayBg"
+              onClick={() => selectOption(option)}
+            >
+              {option.label}
+            </li>
+          ))}
         </ul>
       )}
     </div>
