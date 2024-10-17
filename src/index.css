@@ -5,7 +5,20 @@
 * {
   @apply transition-colors duration-100;
 }
-
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: #b3b3b3 transparent;
+}
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: #b3b3b3;
+  border-radius: 10px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -62,29 +75,30 @@
   }
 }
 .custom-placeholder::placeholder {
-    color:  #CDCDCD;
-;
+  color: #cdcdcd;
   font-size: 16px;
   font-weight: 500;
   line-height: 19.36px;
   letter-spacing: -0.154px;
   text-align: left;
-   
+}
+.borderBtn {
+  border: 1px solid #b2b1b1;
+}
+.required {
+  color: red;
 }
 .custom-checkbox {
- 
-  border: 2px solid #298DFF;
-  border-radius: 50%; 
+  border: 2px solid #298dff;
+  border-radius: 50%;
   outline: none;
   cursor: pointer;
 }
 .custom-checkbox:checked::before {
-  background-color: #298DFF;
- 
+  background-color: #298dff;
 }
 .custom-checkbox-dark:checked::before {
-  background-color:  orange;
- 
+  background-color: orange;
 }
 /* src/App.css */
 .search-input {

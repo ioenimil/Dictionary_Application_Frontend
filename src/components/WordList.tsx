@@ -1,3 +1,4 @@
+ 
 import WordListTable from "./wordListTable";
 const WordList = () => {
   return (
@@ -10,3 +11,6 @@ const WordList = () => {
 };
 
 export default WordList;
+ 
+ 
+ 
