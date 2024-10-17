@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import lightModeSwitch from "../assets/lightModeSwitch.svg";
 import darkModeSwitch from "../assets/darkModeSwitch.svg";
 import darkModeMoon from "../assets/darkModeMoon.svg";
-import lightModeMoon from "../assets/lightModeMoon.svg";
-import { CiLight } from "react-icons/ci";
 import { MdOutlineLightMode } from "react-icons/md";
 
 interface Props {
