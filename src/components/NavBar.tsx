@@ -28,6 +28,7 @@ const NavBar = () => {
   const onSubmit: SubmitHandler<IFormInputs> = async (data) => {
     const theme = getAppTheme();
     try {
+
       const response = await fetch(
         `${import.meta.env.VITE_APP_DICTIONARY_API}api/auth/login/`,
         {
@@ -36,6 +37,7 @@ const NavBar = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(data),
+ 
         },
       );
 
