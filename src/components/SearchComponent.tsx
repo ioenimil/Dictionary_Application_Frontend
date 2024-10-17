@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, useRef } from "react"; // Import useRef
 import { IoSearchOutline } from "react-icons/io5";
 import { WordNotFoundError, WordResult } from "types";
 
@@ -7,34 +7,45 @@ interface Props {
   setWordNotFoundError: React.Dispatch<
     React.SetStateAction<WordNotFoundError | null>
   >;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
 const SearchComponent: React.FC<Props> = ({
   setResults,
   setWordNotFoundError,
+  setIsLoading
 }) => {
   const [searchedWord, setSearchedWord] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const inputRef = useRef<HTMLInputElement | null>(null); // Create a ref for the input
+
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setSearchedWord(e.target.value);
     if (error) setError("");
     setWordNotFoundError(null);
   };
-  const handleSubmit = async (
-    e: React.FormEvent<HTMLFormElement>
-  ): Promise<void> => {
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
+
     if (searchedWord.trim() === "") {
       setError("Whoops, can't be empty...");
       return;
     } else {
       setError("");
       const word = searchedWord.toLowerCase();
-      setSearchedWord("");
+      setSearchedWord(""); // Clear the input
+
+      // Clear previous results and set loading state
+      setResults([]);
+      setWordNotFoundError(null);
+      setIsLoading(true); // Start loading spinner
+
       try {
         const response = await fetch(
           `${import.meta.env.VITE_APP_DICTIONARY_API}/${word}`
-
         );
+
         if (!response.ok) {
           const errorData: WordNotFoundError = await response.json();
           setWordNotFoundError({
@@ -43,44 +54,57 @@ const SearchComponent: React.FC<Props> = ({
             resolution:
               errorData.resolution || "Try again later or check the web.",
           });
+          setIsLoading(false); // Stop loading spinner
           return;
         }
+
         const data: WordResult[] = await response.json();
-        setResults(data);
+        setResults(data); // Set new results
+        setIsLoading(false); // Stop loading spinner
       } catch (error) {
-        const errorMessage = (error instanceof Error) ? error.message : "Something went wrong. Please try again.";
+        const errorMessage = (error instanceof Error)
+          ? error.message
+          : "Something went wrong. Please try again.";
         setWordNotFoundError({
           title: "Error",
           message: errorMessage,
           resolution: "",
         });
+        setIsLoading(false); // Stop loading spinner
+      } finally {
+        if (inputRef.current) {
+          inputRef.current.blur(); // Remove focus from the input
+        }
       }
     }
   };
+
   return (
     <div>
       <form
         onSubmit={handleSubmit}
-        className=" relative mb-1  w-[327px] h-[48px] lg:w-[736px] md:w-[689px] md:h-16 rounded-lg dark:bg-searchBgDarkMode bg-grayBg flex items-center "
+        className="relative mb-1 w-[327px] h-[48px] lg:w-[736px] md:w-[689px] md:h-16 rounded-lg dark:bg-searchBgDarkMode bg-grayBg flex items-center"
       >
         <input
+          ref={inputRef} // Attach the ref to the input
           value={searchedWord}
           onChange={handleSearchChange}
-          className={`pl-5 w-full caret-global_blue   dark:caret-global_orange font-semibold rounded-lg h-full bg-transparent outline-none  placeholder:dark:text-[#FFFFFF]
+          className={`pl-5 w-full caret-global_blue dark:caret-global_orange font-semibold rounded-lg h-full bg-transparent outline-none placeholder:dark:text-[#FFFFFF]
             ${
               error
-                ? "border-global_red  border-[1px]"
-                : " focus:border-global_blue focus:border-[1px]  dark:focus:border-global_orange"
+                ? "border-global_red border-[1px]"
+                : "focus:border-global_blue focus:border-[1px] dark:focus:border-global_orange"
             } focus:outline`}
           type="text"
           placeholder="Search for any word..."
         />
         <button className="absolute right-5 cursor-pointer" type="submit">
-          <IoSearchOutline className=" font-semibold dark:text-global_orange" />
+          <IoSearchOutline className="font-semibold dark:text-global_orange" />
         </button>
       </form>
-      <span className=" text-global_red">{error}</span>
+      <span className="text-global_red">{error}</span>
     </div>
   );
 };
+
 export default SearchComponent;

@@ -8,6 +8,7 @@ import { CgOrganisation } from "react-icons/cg";
 import { FaUser } from "react-icons/fa";
 import DarkMode from "./DarkMode";
 import bookIcon from '../assets/iconoir_book.svg';
+import DashboardDarkMode from "./DashboardDarkMode";
 
 const Dashboard = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -48,7 +49,7 @@ const Dashboard = () => {
           ))}
         </ul>
         <div className="flex flex-col   mt-2 items-center justify-center px-3 py-3 rounded-md hover:bg-global_blue dark:hover:bg-transparent">
-          <DarkMode isSidebarOpen={isSidebarOpen} />
+          <DashboardDarkMode isSidebarOpen={isSidebarOpen} />
         </div>
         <div className="absolute bottom-16 rounded-md">
           <Link to="/dashboard/settings" className="flex items-center gap-4 px-3 py-3">

@@ -25,7 +25,7 @@ const PronounceWord: React.FC<Props> = ({ results }) => {
         <h2 className="font-bold text-3xl dark:text-white capitalize text-[#2D2D2D]">
           {firstResult.word}
         </h2>
-        <p className="text-global_blue font-semibold">{firstResult.phonetic}</p>
+        <p className="text-global_blue dark:text-global_orange font-semibold">{firstResult.phonetic}</p>
       </div>
       <div>
         {phoneticWithAudio && (
