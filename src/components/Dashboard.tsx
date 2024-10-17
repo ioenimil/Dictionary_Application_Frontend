@@ -1,7 +1,6 @@
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { Link, Outlet } from "react-router-dom";
 import bookIcon from '../assets/iconoir_book.svg'
-
 import { useState } from "react";
 import { HiOutlineHome } from "react-icons/hi";
 import { FiEdit, FiSettings } from "react-icons/fi";
