@@ -2,7 +2,7 @@ import filterIcon from "@assets/ic_baseline-filter-list.svg";
 import { useEffect, useRef, useState } from "react";
 
 interface FilterDropdownProps {
-  filter: string; // Current filter value
+  filter: string;
   handleFilterChange: (event: { target: { value: string } }) => void;
 }
 
