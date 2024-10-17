@@ -203,7 +203,7 @@ const WordListTable: React.FC = () => {
                 {dropdownVisible[index] && (
                   <div className="absolute right-0 mt-2 w-24 rounded-md bg-white shadow-lg">
                     <button
-                      onClick={() => handleEdit(index)}
+                      onClick={() => handleEdit()}
                       className="block w-full px-4 py-2 text-left text-sm text-textGrey hover:bg-gray-100"
                     >
                       Edit
