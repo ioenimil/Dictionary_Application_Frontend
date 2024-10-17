@@ -42,7 +42,7 @@ const SearchComponent: React.FC<Props> = ({
 
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_APP_DICTIONARY_API}/${word}`
+          `${import.meta.env.VITE_APP_DICTIONARY_API}${word}`
         );
 
         if (!response.ok) {

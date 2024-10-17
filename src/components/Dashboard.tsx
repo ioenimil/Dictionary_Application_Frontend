@@ -6,7 +6,6 @@ import { FiEdit, FiLogOut, FiSettings } from "react-icons/fi";
 import { IoText } from "react-icons/io5";
 import { CgOrganisation } from "react-icons/cg";
 import { FaUser } from "react-icons/fa";
-import DarkMode from "./DarkMode";
 import bookIcon from '../assets/iconoir_book.svg';
 import DashboardDarkMode from "./DashboardDarkMode";
 

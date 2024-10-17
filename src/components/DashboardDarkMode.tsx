@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import lightModeSwitch from "../assets/lightModeSwitch.svg";
 import darkModeSwitch from "../assets/darkModeSwitch.svg";
 import darkModeMoon from "../assets/darkModeMoon.svg";
-import lightModeMoon from "../assets/lightModeMoon.svg";
 import { MdOutlineLightMode } from "react-icons/md";
 
 interface Props {
@@ -55,7 +54,7 @@ const DashboardDarkMode = ({ isSidebarOpen}: Props) => {
 
  {
     theme === "dark"?(<img
-      className={ `   w-[19.99px] h-mobileHeight`}
+      className={ ` ${!isSidebarOpen && `hidden`}   w-[19.99px] h-mobileHeight`}
       src={ darkModeMoon }
       alt={"darkModeMoon"}
     />):(<MdOutlineLightMode className=" text-xl" />)
