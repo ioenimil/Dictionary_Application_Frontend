@@ -4,6 +4,8 @@ import {
   FiChevronRight,
   FiMoreHorizontal,
 } from "react-icons/fi";
+import DeleteConfirmationModal from "./DeleteConfirmationModal"; // Import the modal
+import Dropdown from "./RenderDropdown";
 import WordListNavBar from "./WordListNavBar";
 import WordListSearchComponent from "./WordListSearchComponent";
 
@@ -23,8 +25,9 @@ const WordListTable: React.FC = () => {
     [key: number]: boolean;
   }>({});
   const [currentPage, setCurrentPage] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal
+  const [wordToDelete, setWordToDelete] = useState<number | null>(null); // Store word index for deletion
 
-  // Set itemsPerPage to 7
   const itemsPerPage = 7;
 
   useEffect(() => {
@@ -59,40 +62,24 @@ const WordListTable: React.FC = () => {
         synonyms: ["assist", "aid"],
         link: "https://example.com/help",
       },
-      {
-        word: "run",
-        partOfSpeech: "verb",
-        synonyms: ["sprint", "jog"],
-        link: "https://example.com/run",
-      },
-      {
-        word: "beautiful",
-        partOfSpeech: "adjective",
-        synonyms: ["gorgeous", "pretty"],
-        link: "https://example.com/beautiful",
-      },
-      {
-        word: "beautiful",
-        partOfSpeech: "adjective",
-        synonyms: ["gorgeous", "pretty"],
-        link: "https://example.com/beautiful",
-      },
-      {
-        word: "beautiful",
-        partOfSpeech: "adjective",
-        synonyms: ["gorgeous", "pretty"],
-        link: "https://example.com/beautiful",
-      },
-
-      // Sample words here
     ];
 
     setWords(sampleWords);
   }, []);
 
   const handleEdit = () => {};
+
   const handleDelete = (index: number) => {
-    setWords(words.filter((_, i) => i !== index));
+    setWordToDelete(index);
+    setIsModalOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (wordToDelete !== null) {
+      setWords(words.filter((_, i) => i !== wordToDelete));
+      setWordToDelete(null); // Reset the wordToDelete
+    }
+    setIsModalOpen(false); // Close the modal after deleting
   };
 
   const toggleDropdown = (index: number) => {
@@ -120,40 +107,20 @@ const WordListTable: React.FC = () => {
   const currentItems = filteredWords.slice(indexOfFirstItem, indexOfLastItem);
 
   const handlePageChange = (pageNumber: number) => {
-    console.log("Changing to page:", pageNumber);
     setCurrentPage(pageNumber);
   };
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
-      console.log("Next page");
       setCurrentPage((prev) => prev + 1);
     }
   };
 
   const handlePreviousPage = () => {
     if (currentPage > 1) {
-      console.log("Previous page");
       setCurrentPage((prev) => prev - 1);
     }
   };
-
-  const renderDropdown = (index: number) => (
-    <div className="absolute right-0 mt-2 w-24 rounded-md bg-white shadow-lg">
-      <button
-        onClick={handleEdit}
-        className="block w-full px-4 py-2 text-left text-sm text-textGrey hover:bg-gray-100"
-      >
-        Edit
-      </button>
-      <button
-        onClick={() => handleDelete(index)}
-        className="block w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-100"
-      >
-        Delete
-      </button>
-    </div>
-  );
 
   const renderPagination = () => (
     <div className="ml-[403px] mt-4 flex h-[50px] w-[395px] items-center justify-center gap-[10px] rounded-3xl bg-white dark:bg-textBlack">
@@ -218,7 +185,7 @@ const WordListTable: React.FC = () => {
                 <th className={tableHeaderClasses}></th>
               </tr>
             </thead>
-            <tbody className="dark:text-darkGrey h-[75px] divide-y divide-gray-200 bg-white dark:divide-textGrey dark:bg-[#404040]">
+            <tbody className="h-[75px] divide-y divide-gray-200 bg-white dark:divide-textGrey dark:bg-[#404040] dark:text-darkGrey">
               {currentItems.map((word, index) => (
                 <tr
                   key={index}
@@ -242,7 +209,14 @@ const WordListTable: React.FC = () => {
                     <button onClick={() => toggleDropdown(index)}>
                       <FiMoreHorizontal className="text-textGrey" />
                     </button>
-                    {dropdownVisible[index] && renderDropdown(index)}
+                    {dropdownVisible[index] && (
+                      <Dropdown
+                        index={index}
+                        onEdit={handleEdit}
+                        onDelete={() => handleDelete(index)}
+                        onClose={() => setDropdownVisible({})}
+                      />
+                    )}
                   </td>
                 </tr>
               ))}
@@ -251,6 +225,12 @@ const WordListTable: React.FC = () => {
           {filteredWords.length > 7 && renderPagination()}
         </>
       )}
+
+      <DeleteConfirmationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={confirmDelete}
+      />
     </div>
   );
 };
