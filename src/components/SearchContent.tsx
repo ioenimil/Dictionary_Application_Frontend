@@ -15,10 +15,9 @@ const SearchContent = () => {
     <SearchComponent
       setWordNotFoundError={setWordNotFoundError}
       setResults={setResults}
-      setIsLoading={setIsLoading} // Pass the loading state setter
+      setIsLoading={setIsLoading} 
     />
     
-    {/* Conditionally render components based on loading state, error, and results */}
     {isLoading ? (
       <Spinner />  
     ) : wordNotFoundError ? (

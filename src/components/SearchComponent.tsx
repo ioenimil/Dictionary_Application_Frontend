@@ -34,12 +34,11 @@ const SearchComponent: React.FC<Props> = ({
     } else {
       setError("");
       const word = searchedWord.toLowerCase();
-      setSearchedWord(""); // Clear the input
+      setSearchedWord(""); 
 
-      // Clear previous results and set loading state
       setResults([]);
       setWordNotFoundError(null);
-      setIsLoading(true); // Start loading spinner
+      setIsLoading(true); 
 
       try {
         const response = await fetch(
@@ -54,13 +53,13 @@ const SearchComponent: React.FC<Props> = ({
             resolution:
               errorData.resolution || "Try again later or check the web.",
           });
-          setIsLoading(false); // Stop loading spinner
+          setIsLoading(false);
           return;
         }
 
         const data: WordResult[] = await response.json();
-        setResults(data); // Set new results
-        setIsLoading(false); // Stop loading spinner
+        setResults(data); 
+        setIsLoading(false); 
       } catch (error) {
         const errorMessage = (error instanceof Error)
           ? error.message
@@ -70,10 +69,10 @@ const SearchComponent: React.FC<Props> = ({
           message: errorMessage,
           resolution: "",
         });
-        setIsLoading(false); // Stop loading spinner
+        setIsLoading(false); 
       } finally {
         if (inputRef.current) {
-          inputRef.current.blur(); // Remove focus from the input
+          inputRef.current.blur(); 
         }
       }
     }
@@ -86,7 +85,7 @@ const SearchComponent: React.FC<Props> = ({
         className="relative mb-1 w-[327px] h-[48px] lg:w-[736px] md:w-[689px] md:h-16 rounded-lg dark:bg-searchBgDarkMode bg-grayBg flex items-center"
       >
         <input
-          ref={inputRef} // Attach the ref to the input
+          ref={inputRef} 
           value={searchedWord}
           onChange={handleSearchChange}
           className={`pl-5 w-full caret-global_blue dark:caret-global_orange font-semibold rounded-lg h-full bg-transparent outline-none placeholder:dark:text-[#FFFFFF]

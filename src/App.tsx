@@ -6,7 +6,7 @@ import Dashboard from "@components/Dashboard";
 import HeroComponent from "@components/HeroComponent";
 import Home from "@components/Home";
 import WordList from "@components/WordList";
-// import ProtectedRoute from "@components/ProtectedRoute";
+
 
 function App() {
   return (
