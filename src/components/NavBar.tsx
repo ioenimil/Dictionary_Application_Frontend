@@ -23,7 +23,7 @@ const NavBar = () => {
   const onSubmit: SubmitHandler<IFormInputs> = async (data) => {
   const theme = getAppTheme();
     try {
-      const response = await fetch(import.meta.env.VITE_APP_LOGIN, {
+      const response = await fetch(`${import.meta.env.VITE_APP_LOGIN}api/auth/login/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
