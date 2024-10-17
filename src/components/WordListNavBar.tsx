@@ -3,7 +3,6 @@ import sortIcon from "@assets/Vector (1).svg";
 import React, { useState } from "react";
 import FilterDropdown from "./FilterDropdown";
 import AddWord from "./AddWord";
-import { set } from "react-hook-form";
 interface WordListNavBarProps {
   onSort: () => void;
   onFilter: (filter: string) => void;
