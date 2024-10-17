@@ -15,7 +15,7 @@ const Dashboard = () => {
   const location = useLocation();
   
   const navItems = [
-    { title: "Home", icon: <HiOutlineHome />, path: "/dashboard/home" },
+    { title: "Home", icon: <HiOutlineHome />, path: "/dashboard" },
     { title: "Word List", icon: <IoText />, path: "/dashboard/wordlist" },
     { title: "Users", icon: <FiEdit />, path: "/dashboard/users" },
     { title: "Organization", icon: <CgOrganisation />, path: "/dashboard/organizations" },
