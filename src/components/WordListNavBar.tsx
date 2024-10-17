@@ -17,19 +17,24 @@ const WordListNavBar: React.FC<WordListNavBarProps> = ({
     onFilter(selectedFilter);
   };
   return (
-    <nav className="ml-[804px] mt-8 flex h-[34px] w-[380px] gap-2">
-      <FilterDropdown filter={filter} handleFilterChange={handleFilterChange} />
-      <button
-        className="flex h-[33px] w-[111px] rounded bg-grayBg px-3 py-1"
-        onClick={onSort}
-      >
-        <img src={sortIcon} alt="Sort" className="h- mt-1 h-4 w-[14px]" />
-        <span className="pl-1">Sort</span>
-      </button>
-      <button className="flex h-[33px] w-[130px] rounded bg-blueBg px-3 py-1">
-        <img src={addIcon} alt="Add" />
-        <span className="pl-1 text-white">Add Word</span>
-      </button>
+    <nav className="flex justify-end">
+      <div className="mt-8 flex h-[34px] w-[380px] gap-2">
+        <FilterDropdown
+          filter={filter}
+          handleFilterChange={handleFilterChange}
+        />
+        <button
+          className="flex h-[33px] w-[111px] rounded bg-grayBg px-3 py-1 dark:bg-textBlack dark:text-textGrey"
+          onClick={onSort}
+        >
+          <img src={sortIcon} alt="Sort" className="h- mt-1 h-4 w-[14px]" />
+          <span className="pl-1">Sort</span>
+        </button>
+        <button className="flex h-[33px] w-[130px] rounded bg-blueBg px-3 py-1 dark:bg-global_orange">
+          <img src={addIcon} alt="Add" />
+          <span className="pl-1 text-white">Add Word</span>
+        </button>
+      </div>
     </nav>
   );
 };
