@@ -17,7 +17,7 @@ const SearchComponent: React.FC<Props> = ({
 }) => {
   const [searchedWord, setSearchedWord] = useState<string>("");
   const [error, setError] = useState<string>("");
-  const inputRef = useRef<HTMLInputElement | null>(null); // Create a ref for the input
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setSearchedWord(e.target.value);
