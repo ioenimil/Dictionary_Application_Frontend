@@ -42,7 +42,12 @@ const SearchComponent: React.FC<Props> = ({
 
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_APP_DICTIONARY_API}${word}`
+
+          
+
+          `${import.meta.env.VITE_APP_DICTIONARY_API}api/v1/word/word-search/?q=${word}`
+
+
         );
 
         if (!response.ok) {
@@ -88,7 +93,8 @@ const SearchComponent: React.FC<Props> = ({
           ref={inputRef} 
           value={searchedWord}
           onChange={handleSearchChange}
-          className={`pl-5 w-full caret-global_blue dark:caret-global_orange font-semibold rounded-lg h-full bg-transparent outline-none placeholder:dark:text-[#FFFFFF]
+
+          className={`pl-5 w-full caret-global_blue dark:bg-searchBgDarkMode dark:caret-global_orange font-semibold rounded-lg h-full bg-transparent outline-none placeholder:dark:text-[#FFFFFF]
             ${
               error
                 ? "border-global_red border-[1px]"

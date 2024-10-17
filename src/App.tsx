@@ -7,7 +7,6 @@ import HeroComponent from "@components/HeroComponent";
 import Home from "@components/Home";
 import WordList from "@components/WordList";
 
-
 function App() {
   return (
     <Router>
