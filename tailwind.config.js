@@ -8,13 +8,14 @@ export default {
         mobileHeight: "h-[20px]",
         tabletHeight: "h-[36px]",
       },
+
       boxShadow: {
         lightMode: "0px 5px 30px 0px #5091dd",
         darkMode: "0px 5px 10px 0px #ff65001a",
-        logInShadow:"0px 4px 8.3px 0px #9BA8BA",
-        logInDarkShadow: "0px 4px 8.3px 0px #FF65005C 36%"
+        logInShadow: "0px 4px 8.3px 0px #9BA8BA",
+        logInDarkShadow: "0px 4px 8.3px 0px #FF65005C 36%",
       },
-      
+
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -27,18 +28,22 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        lightGrey: "#F4F4F4",
         global_orange: "#FF6500",
+
         darkBg:' #1E1E1E',
         grayBg:"#E9E9E9",
-        searchBgDarkMode:"#3F3F3F",
         global_blue:"#298DFF",
         global_red:"#FF5252",
+        searchBgDarkMode:"#3F3F3F",
         orange: "#FF6500",
+       
         grayBg: "#E9E9E9",
         textGrey: " #757575",
-        global_orange: "#FF6500",
-        darkBg:' #1E1E1E',
-        global_blue:"#298DFF",
+        blueBg: "#298DFF",
+        faded_global_blue:"#D3E3F7",
+
+
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",

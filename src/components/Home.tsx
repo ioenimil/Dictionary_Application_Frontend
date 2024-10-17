@@ -1,7 +1,9 @@
+import SearchContent from "./SearchContent"
+
 const Home = () => {
   return (
-    <div>
-     Home 
+    <div className=" flex items-center justify-center  ">
+      <SearchContent/>
     </div>
   )
 }
