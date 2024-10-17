@@ -61,7 +61,7 @@ const PartOfSpeech: React.FC<PartOfSpeechType> = ({ results }) => {
                 ))}
               </div>
             )}
-          </div>
+            </div>
         );
       })}
     </>

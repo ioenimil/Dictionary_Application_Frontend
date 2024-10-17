@@ -17,8 +17,8 @@ const AddWordModal: React.FC<AddWordModalProps> = ({ onClose, onAddWord }) => {
   const [word, setWord] = useState("");
   const [scource, setScource] = useState("");
   const [partOfSpeech, setPartOfSpeech] = useState("");
-  const [synonyms, setSynonyms] = useState("");
-  const [link, setLink] = useState("");
+  const [synonyms] = useState("");
+  const [link] = useState("");
   const [partsOfSpeech, setPartsOfSpeech] = useState<string[]>([""]);
 
   const handleAddPartOfSpeech = () => {

@@ -43,7 +43,7 @@ const Dropdown = () => {
     </div>
   );
   return (
-    <div className="md:relative inline-block w-full" ref={dropdownRef}>
+    <div className="  md:relative inline-block w-full" ref={dropdownRef}>
       <div
         className="md:p-2 border-global_blue  dark:border-global_orange border-b-[1px] md:border-none flex items-center justify-between font-bold w-full cursor-pointer"
         onClick={() => setIsOpen((prev) => !prev)}
