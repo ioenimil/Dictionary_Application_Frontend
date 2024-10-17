@@ -1,5 +1,5 @@
 import React from "react";
-import searchIcon from "@assets/Vector.svg";
+import { IoSearch } from "react-icons/io5";
 
 interface WordListSearchComponentProps {
   searchTerm: string;
@@ -11,14 +11,10 @@ const WordListSearchComponent: React.FC<WordListSearchComponentProps> = ({
   setSearchTerm,
 }) => {
   return (
-    <main className="ml-[348px] mt-8 flex h-[33px] w-[550px] rounded-xl bg-grayBg pl-5">
-      <img
-        src={searchIcon}
-        alt="searchIcon"
-        className="ml-1 mt-2 h-4 w-4 items-center"
-      />
+    <main className="ml-[348px] flex h-[33px] w-[550px] rounded-xl bg-grayBg pl-5 dark:bg-textBlack dark:text-textGrey">
+      <IoSearch className="ml-1 mt-2 h-4 w-4 items-center dark:text-orange" />
       <input
-        className="custom-placeholder w-full bg-transparent pl-3 outline-none"
+        className="dark:placeholder:text-textWhite w-full bg-transparent pl-3 outline-none placeholder:text-textBlack"
         type="text"
         placeholder="Search"
         value={searchTerm}
