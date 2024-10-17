@@ -23,10 +23,70 @@ const WordListTable: React.FC = () => {
     [key: number]: boolean;
   }>({});
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+
+  // Set itemsPerPage to 7
+  const itemsPerPage = 7;
 
   useEffect(() => {
-    const sampleWords: Word[] = [];
+    const sampleWords: Word[] = [
+      {
+        word: "run",
+        partOfSpeech: "verb",
+        synonyms: ["sprint", "jog"],
+        link: "https://example.com/run",
+      },
+      {
+        word: "beautiful",
+        partOfSpeech: "adjective",
+        synonyms: ["gorgeous", "pretty"],
+        link: "https://example.com/beautiful",
+      },
+      {
+        word: "jump",
+        partOfSpeech: "verb",
+        synonyms: ["leap", "bounce"],
+        link: "https://example.com/jump",
+      },
+      {
+        word: "dance",
+        partOfSpeech: "verb",
+        synonyms: ["move", "sway"],
+        link: "https://example.com/dance",
+      },
+      {
+        word: "help",
+        partOfSpeech: "verb",
+        synonyms: ["assist", "aid"],
+        link: "https://example.com/help",
+      },
+      {
+        word: "run",
+        partOfSpeech: "verb",
+        synonyms: ["sprint", "jog"],
+        link: "https://example.com/run",
+      },
+      {
+        word: "beautiful",
+        partOfSpeech: "adjective",
+        synonyms: ["gorgeous", "pretty"],
+        link: "https://example.com/beautiful",
+      },
+      {
+        word: "beautiful",
+        partOfSpeech: "adjective",
+        synonyms: ["gorgeous", "pretty"],
+        link: "https://example.com/beautiful",
+      },
+      {
+        word: "beautiful",
+        partOfSpeech: "adjective",
+        synonyms: ["gorgeous", "pretty"],
+        link: "https://example.com/beautiful",
+      },
+
+      // Sample words here
+    ];
+
     setWords(sampleWords);
   }, []);
 
@@ -59,11 +119,24 @@ const WordListTable: React.FC = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredWords.slice(indexOfFirstItem, indexOfLastItem);
 
-  const handlePageChange = (pageNumber: number) => setCurrentPage(pageNumber);
-  const handleNextPage = () =>
-    currentPage < totalPages && setCurrentPage((prev) => prev + 1);
-  const handlePreviousPage = () =>
-    currentPage > 1 && setCurrentPage((prev) => prev - 1);
+  const handlePageChange = (pageNumber: number) => {
+    console.log("Changing to page:", pageNumber);
+    setCurrentPage(pageNumber);
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      console.log("Next page");
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      console.log("Previous page");
+      setCurrentPage((prev) => prev - 1);
+    }
+  };
 
   const renderDropdown = (index: number) => (
     <div className="absolute right-0 mt-2 w-24 rounded-md bg-white shadow-lg">
@@ -83,7 +156,7 @@ const WordListTable: React.FC = () => {
   );
 
   const renderPagination = () => (
-    <div className="ml-[403px] mt-4 flex h-[50px] w-[395px] items-center justify-center gap-[10px] rounded-3xl bg-white">
+    <div className="ml-[403px] mt-4 flex h-[50px] w-[395px] items-center justify-center gap-[10px] rounded-3xl bg-white dark:bg-textBlack">
       <button
         onClick={handlePreviousPage}
         disabled={currentPage === 1}
@@ -97,8 +170,8 @@ const WordListTable: React.FC = () => {
           onClick={() => handlePageChange(pageNumber)}
           className={`h-8 w-8 rounded-full px-3 py-1 transition-colors duration-200 ${
             pageNumber === currentPage
-              ? "bg-blueBg text-white"
-              : "bg-gray-200 text-white hover:bg-blue-200"
+              ? "bg-blueBg text-white dark:bg-global_orange"
+              : "dark: bg-gray-200 text-white hover:bg-blue-200 dark:hover:bg-[#FF650073]"
           }`}
         >
           {pageNumber}
@@ -115,11 +188,11 @@ const WordListTable: React.FC = () => {
   );
 
   const tableHeaderClasses =
-    "px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-black dark:text-textGrey";
+    "px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-black dark:text-textGrey  ";
   const tableCellClasses = "whitespace-nowrap px-6 py-4 text-sm text-textGrey";
 
   return (
-    <>
+    <div className="flex h-full flex-col">
       <WordListSearchComponent
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
@@ -129,40 +202,56 @@ const WordListTable: React.FC = () => {
         onSort={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
       />
 
-      <table className="mt-2 w-[1200px] divide-y divide-gray-500">
-        <thead className="h-[75px] bg-white dark:bg-[#404040] dark:text-white">
-          <tr>
-            <th className={tableHeaderClasses}>Word</th>
-            <th className={tableHeaderClasses}>Part of Speech</th>
-            <th className={tableHeaderClasses}>Synonyms</th>
-            <th className={tableHeaderClasses}>Link</th>
-            <th className={tableHeaderClasses}></th>
-          </tr>
-        </thead>
-        <tbody className="h-[75px] divide-y divide-gray-200 bg-white dark:bg-[#404040]">
-          {currentItems.map((word, index) => (
-            <tr key={index} className="border-b border-gray-200">
-              <td className={tableCellClasses}>{word.word}</td>
-              <td className={tableCellClasses}>{word.partOfSpeech}</td>
-              <td className={tableCellClasses}>{word.synonyms.join(" ")}</td>
-              <td className={`${tableCellClasses} underline`}>
-                <a href={word.link} target="_blank" rel="noopener noreferrer">
-                  {word.link}
-                </a>
-              </td>
-              <td className="relative whitespace-nowrap px-6 py-4 text-sm font-medium">
-                <button onClick={() => toggleDropdown(index)}>
-                  <FiMoreHorizontal className="text-textGrey" />
-                </button>
-                {dropdownVisible[index] && renderDropdown(index)}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      {renderPagination()}
-    </>
+      {filteredWords.length === 0 ? (
+        <div className="flex flex-grow items-center justify-center">
+          <p className="text-center text-6xl text-textGrey">No words added.</p>
+        </div>
+      ) : (
+        <>
+          <table className="mt-2 w-full divide-y divide-gray-500">
+            <thead className="h-[75px] bg-white dark:bg-[] dark:bg-textBlack dark:text-white">
+              <tr>
+                <th className={tableHeaderClasses}>Word</th>
+                <th className={tableHeaderClasses}>Part of Speech</th>
+                <th className={tableHeaderClasses}>Synonyms</th>
+                <th className={tableHeaderClasses}>Link</th>
+                <th className={tableHeaderClasses}></th>
+              </tr>
+            </thead>
+            <tbody className="dark:text-darkGrey h-[75px] divide-y divide-gray-200 bg-white dark:divide-textGrey dark:bg-[#404040]">
+              {currentItems.map((word, index) => (
+                <tr
+                  key={index}
+                  className="border-b border-gray-200 dark:border-textGrey"
+                >
+                  <td className={tableCellClasses}>{word.word}</td>
+                  <td className={tableCellClasses}>{word.partOfSpeech}</td>
+                  <td className={tableCellClasses}>
+                    {word.synonyms.join(" ")}
+                  </td>
+                  <td className={`${tableCellClasses} underline`}>
+                    <a
+                      href={word.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {word.link}
+                    </a>
+                  </td>
+                  <td className="relative whitespace-nowrap px-6 py-4 text-sm font-medium">
+                    <button onClick={() => toggleDropdown(index)}>
+                      <FiMoreHorizontal className="text-textGrey" />
+                    </button>
+                    {dropdownVisible[index] && renderDropdown(index)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {filteredWords.length > 7 && renderPagination()}
+        </>
+      )}
+    </div>
   );
 };
 
