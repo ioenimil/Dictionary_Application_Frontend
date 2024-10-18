@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import addIcon from "@assets/Group.svg";
 import playIcon from "@assets/playIcon.svg";
 import React, { ChangeEvent, useState } from "react";
@@ -523,3 +524,10 @@ const AddWordModal: React.FC<AddWordModalProps> = ({ setShowAddWord}) => {
 };
 
 export default AddWordModal;
+=======
+function AddWord({}) {
+  return <div>AddWord</div>;
+}
+
+export default AddWord;
+>>>>>>> ceafb56 (modify)
