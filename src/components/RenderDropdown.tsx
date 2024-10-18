@@ -9,7 +9,6 @@ interface DropdownProps {
 }
 
 const RenderDropdown: React.FC<DropdownProps> = ({
-  index,
   onEdit,
   onDelete,
   onClose,
@@ -35,7 +34,7 @@ const RenderDropdown: React.FC<DropdownProps> = ({
   return (
     <div
       ref={dropdownRef}
-      className="absolute right-0 mt-2 h-[86px] w-[99px] gap-2 rounded-md bg-white shadow-logInShadow dark:bg-black dark:shadow-darkMode"
+      className="absolute right-0 z-10 mt-2 h-[86px] w-[99px] gap-2 rounded-md bg-white shadow-logInShadow dark:bg-black dark:shadow-darkMode"
     >
       <button
         onClick={onEdit}

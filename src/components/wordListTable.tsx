@@ -4,70 +4,96 @@ import {
   FiChevronRight,
   FiMoreHorizontal,
 } from "react-icons/fi";
+import { toast } from "react-toastify";
 import DeleteConfirmationModal from "./DeleteConfirmationModal"; // Import the modal
-import Dropdown from "./RenderDropdown";
+import RenderDropdown from "./RenderDropdown"; // Import RenderDropdown component
 import WordListNavBar from "./WordListNavBar";
 import WordListSearchComponent from "./WordListSearchComponent";
 
-interface Word {
-  word: string;
+interface Definition {
+  id: number;
+  definition: string;
+  synonyms: string[];
+  antonyms: string[];
+  example: string[];
+}
+
+interface Meaning {
+  id: number;
   partOfSpeech: string;
   synonyms: string[];
-  link: string;
+  antonyms: string[];
+  definitions: Definition[];
 }
+
+interface ApiResponseItem {
+  id: number;
+  word: string;
+  phonetics: any[]; // Adjust the type based on actual phonetic structure
+  meanings: Meaning[];
+  license: null | string; // Change to appropriate type if needed
+  source_urls: string[];
+}
+
+// Example usage with an array of items
+type ApiResponse = ApiResponseItem[];
 
 const WordListTable: React.FC = () => {
   const [words, setWords] = useState<Word[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [filterTerm, setFilterTerm] = useState("");
-  const [dropdownVisible, setDropdownVisible] = useState<{
-    [key: number]: boolean;
-  }>({});
+  const [dropdownVisible, setDropdownVisible] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal
   const [wordToDelete, setWordToDelete] = useState<number | null>(null); // Store word index for deletion
 
   const itemsPerPage = 7;
 
-  useEffect(() => {
-    const sampleWords: Word[] = [
-      {
-        word: "run",
-        partOfSpeech: "verb",
-        synonyms: ["sprint", "jog"],
-        link: "https://example.com/run",
-      },
-      {
-        word: "beautiful",
-        partOfSpeech: "adjective",
-        synonyms: ["gorgeous", "pretty"],
-        link: "https://example.com/beautiful",
-      },
-      {
-        word: "jump",
-        partOfSpeech: "verb",
-        synonyms: ["leap", "bounce"],
-        link: "https://example.com/jump",
-      },
-      {
-        word: "dance",
-        partOfSpeech: "verb",
-        synonyms: ["move", "sway"],
-        link: "https://example.com/dance",
-      },
-      {
-        word: "help",
-        partOfSpeech: "verb",
-        synonyms: ["assist", "aid"],
-        link: "https://example.com/help",
-      },
-    ];
+  interface Word {
+    id: number;
+    word: string;
+    partOfSpeech: string;
+    synonyms: string[];
+    link: string;
+  }
 
-    setWords(sampleWords);
+  useEffect(() => {
+    const runEffect = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_APP_DICTIONARY_API}api/v1/words/`,
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const apiResponse: ApiResponse = await response.json();
+
+        // Transform the API response to fit the Word interface
+        const sampleWords: Word[] = apiResponse.flatMap((item) =>
+          item.meanings.map((meaning) => ({
+            id: item.id,
+            word: item.word,
+            partOfSpeech: meaning.partOfSpeech,
+            synonyms: meaning.synonyms,
+            link: item.source_urls[0] || "", // Use the first source URL or an empty string
+          })),
+        );
+
+        console.log("sampleWords", sampleWords);
+
+        setWords(sampleWords);
+      } catch (error) {
+        console.error("Failed to fetch words:", error);
+      }
+    };
+
+    runEffect();
   }, []);
 
-  const handleEdit = () => {};
+  const handleEdit = () => {
+    // Edit logic here
+  };
 
   const handleDelete = (index: number) => {
     setWordToDelete(index);
@@ -76,17 +102,30 @@ const WordListTable: React.FC = () => {
 
   const confirmDelete = () => {
     if (wordToDelete !== null) {
-      setWords(words.filter((_, i) => i !== wordToDelete));
-      setWordToDelete(null); // Reset the wordToDelete
+      // Remove the word from the list using filter
+      try {
+        fetch(
+          `${import.meta.env.VITE_APP_DICTIONARY_API}api/v1/delete_word/${wordToDelete}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        );
+        toast.success("Word deleted successfully");
+      } catch (error) {
+        toast.error(`Failed to delete word: ${error}`);
+      }
+      const updatedWords = words.filter((word) => word.id !== wordToDelete);
+      setWords(updatedWords);
+      setWordToDelete(null);
+      setIsModalOpen(false);
     }
-    setIsModalOpen(false); // Close the modal after deleting
   };
 
   const toggleDropdown = (index: number) => {
-    setDropdownVisible((prev) => ({
-      ...prev,
-      [index]: !prev[index],
-    }));
+    setDropdownVisible((prev) => (prev === index ? null : index));
   };
 
   const sortedWords = [...words].sort((a, b) =>
@@ -101,6 +140,7 @@ const WordListTable: React.FC = () => {
       word.word.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
+  // Pagination logic
   const totalPages = Math.ceil(filteredWords.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -138,7 +178,7 @@ const WordListTable: React.FC = () => {
           className={`h-8 w-8 rounded-full px-3 py-1 transition-colors duration-200 ${
             pageNumber === currentPage
               ? "bg-blueBg text-white dark:bg-global_orange"
-              : "dark: bg-gray-200 text-white hover:bg-blue-200 dark:hover:bg-[#FF650073]"
+              : "text-white hover:bg-blue-200 dark:bg-gray-200 dark:hover:bg-[#FF650073]"
           }`}
         >
           {pageNumber}
@@ -155,8 +195,8 @@ const WordListTable: React.FC = () => {
   );
 
   const tableHeaderClasses =
-    "px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-black dark:text-textGrey  ";
-  const tableCellClasses = "whitespace-nowrap px-6 py-4 text-sm text-textGrey";
+    "px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-black dark:text-textGrey";
+  const tableCellClasses = "  px-6 py-4 text-sm text-textGrey";
 
   return (
     <div className="flex h-full flex-col">
@@ -209,12 +249,13 @@ const WordListTable: React.FC = () => {
                     <button onClick={() => toggleDropdown(index)}>
                       <FiMoreHorizontal className="text-textGrey" />
                     </button>
-                    {dropdownVisible[index] && (
-                      <Dropdown
+                    {dropdownVisible === index && (
+                      <RenderDropdown
+                        key={index}
                         index={index}
                         onEdit={handleEdit}
-                        onDelete={() => handleDelete(index)}
-                        onClose={() => setDropdownVisible({})}
+                        onDelete={() => handleDelete(word.id)}
+                        onClose={() => setDropdownVisible(null)}
                       />
                     )}
                   </td>
