@@ -25,7 +25,7 @@ const WordListNavBar: React.FC<WordListNavBarProps> = ({
   return (
     <div className="flex w-full justify-end">
       {showAddWord ? ( // Conditionally render AddWord component
-        <AddWord setShowAddWord={setShowAddWord} />
+        <AddWord />
       ) : (
         <nav className="ml-[804px] mt-8 flex h-[34px] w-[380px] gap-2">
           <FilterDropdown

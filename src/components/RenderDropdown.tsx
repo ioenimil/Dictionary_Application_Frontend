@@ -9,7 +9,6 @@ interface DropdownProps {
 }
 
 const RenderDropdown: React.FC<DropdownProps> = ({
-  index,
   onEdit,
   onDelete,
   onClose,
