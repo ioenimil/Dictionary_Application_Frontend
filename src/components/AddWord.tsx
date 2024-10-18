@@ -1,9 +1,7 @@
 import addIcon from "@assets/Group.svg";
 import playIcon from "@assets/playIcon.svg";
 import React, { ChangeEvent, useState } from "react";
-import AdminAddPartOfSpeechSection from "./AdminAddPartOfSpeech";
 import {SubmitHandler, useForm} from 'react-hook-form'
-import { IFormInputs } from "types";
 import { FaPlus } from "react-icons/fa";
 import PartOfSpeechDropdown from "./PartOfSpeechDropdown";
 import { GoDotFill } from "react-icons/go";
@@ -19,20 +17,13 @@ interface FormInputs {
 
 
 const AddWordModal: React.FC<AddWordModalProps> = ({ setShowAddWord}) => {
-  const [word, setWord] = useState("");
-  const [scource, setScource] = useState("");
-  const [partOfSpeech, setPartOfSpeech] = useState("");
+  const [, setPartOfSpeech] = useState("");
   const [partsOfSpeech, setPartsOfSpeech] = useState<string[]>([""]);
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormInputs>();
   const handleAddPartOfSpeech = () => {
     setPartsOfSpeech([...partsOfSpeech, ""]);
   };
 
-  const handlePartOfSpeechChange = (index: number, value: string) => {
-    const newPartsOfSpeech = [...partsOfSpeech];
-    newPartsOfSpeech[index] = value;
-    setPartsOfSpeech(newPartsOfSpeech);
-  };
   const onSubmit: SubmitHandler<FormInputs> =  (data)=>{
       console.log(data)
 
@@ -118,6 +109,7 @@ const AddWordModal: React.FC<AddWordModalProps> = ({ setShowAddWord}) => {
           </label>
           <div className="flex items-center gap-3">
             <input
+            placeholder="Phonetics"
               type="text"
               {...register("pronunciation", { required: "Pronunciation is required" })}
               className="h-[42px] w-[540px] rounded-xl border border-grayBg bg-white p-2.5 text-sm text-textGrey outline-none"
@@ -126,7 +118,6 @@ const AddWordModal: React.FC<AddWordModalProps> = ({ setShowAddWord}) => {
             {errors.pronunciation && <p className="text-red-500">{errors.pronunciation.message}</p>}
           </div>
         </div>
-
         {partsOfSpeech.map((part, index) => (
           <div
           className="border-lightGrey mb-2 h-auto w-[1092px] rounded-xl border bg-white pl-5 hover:border-global_blue"
@@ -159,9 +150,11 @@ const AddWordModal: React.FC<AddWordModalProps> = ({ setShowAddWord}) => {
                 <div className="mb-3 flex justify-between">
                   <div>
                     <label className="text-textGrey">Examples :</label>
-                    {examples.map((example, index) => (
+                    {examples.map((example, index) => { 
+                      return(<>
                       <div key={index} className="ml-16 mt-2 flex items-center">
                         <GoDotFill className="mr-2 h-[10px] w-[10px] text-global_blue" />
+                        <span>Example:</span>
                         <input
                           type="text"
                           value={example}
@@ -169,7 +162,10 @@ const AddWordModal: React.FC<AddWordModalProps> = ({ setShowAddWord}) => {
                           className="h-[42px] w-full bg-transparent p-2.5 text-sm text-textGrey outline-none"
                         />
                       </div>
-                    ))}
+                        
+                      </>)
+                      
+})}
                   </div>
                   <div>
                     <div
@@ -202,6 +198,7 @@ const AddWordModal: React.FC<AddWordModalProps> = ({ setShowAddWord}) => {
                       {examples.map((example, index) => (
                         <div key={index} className="ml-16 mt-2 flex items-center">
                           <GoDotFill className="mr-2 text-global_blue" />
+                          <span>Example</span>
                           <input
                             type="text"
                             value={example}
@@ -241,11 +238,6 @@ const AddWordModal: React.FC<AddWordModalProps> = ({ setShowAddWord}) => {
             </div>
           </div>
         </div>
-          // <AdminAddPartOfSpeechSection
-          //   key={index}
-          //   partOfSpeech={part}
-          //   setPartOfSpeech={(value) => handlePartOfSpeechChange(index, value)}
-          // />
         ))}
 
         <div className="my-3">

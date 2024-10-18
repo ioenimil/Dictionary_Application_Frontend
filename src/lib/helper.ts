@@ -4,7 +4,6 @@ export const validToken = (token: string | undefined) => {
     try {
       const decoded: any = jwtDecode(token); 
       const currentTime = Date.now() / 1000;
-      console.log("Decoded Token:", decoded);
       return decoded.exp > currentTime; 
     } catch (error) {
       console.error("Error decoding token:", error); 
