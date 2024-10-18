@@ -21,6 +21,7 @@ const WordListNavBar: React.FC<WordListNavBarProps> = ({
 
   const handleAddWordClick = () => {
     setShowAddWord(true); // Show AddWord page
+    console.log("AddWord clicked");
   };
   return (
     <div className="flex w-full justify-end">
