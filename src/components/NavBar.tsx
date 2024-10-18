@@ -16,6 +16,7 @@ import SideNav from "./SideNav";
 const NavBar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Add loading state
   const {
     register,
     handleSubmit,
@@ -27,8 +28,8 @@ const NavBar = () => {
   const navigate = useNavigate();
   const onSubmit: SubmitHandler<IFormInputs> = async (data) => {
     const theme = getAppTheme();
+    setIsLoading(true); // Show loader
     try {
-
       const response = await fetch(
         `${import.meta.env.VITE_APP_DICTIONARY_API}api/auth/login/`,
         {
@@ -37,7 +38,6 @@ const NavBar = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(data),
- 
         },
       );
 
@@ -64,6 +64,8 @@ const NavBar = () => {
       navigate("/dashboard");
     } catch (error: string | any) {
       throw new Error(error.message);
+    } finally {
+      setIsLoading(false); // Hide loader
     }
   };
   const openModal = () => setIsModalOpen(true);
@@ -140,7 +142,7 @@ const NavBar = () => {
                     message: " Please enter a valid email address",
                   },
                 })}
-                className={`h-[50px] w-[356px] bg-transparent outline-none focus:outline-none ${errors.email ? "border-global_red" : ""} rounded-2xl border-[0.5px] p-4 dark:bg-darkBg`}
+                className={`h-[50px] w-[356px] bg-transparent outline-none focus:outline-none ${errors.email ? "border-global_red" : ""} rounded-2xl border-[0.5px] p-4 dark:bg-darkBg dark:placeholder-textGrey`}
                 placeholder="wadewarren@amalitech.org"
               />
               {errors.email && (
@@ -168,7 +170,7 @@ const NavBar = () => {
                       message: "Password must be six or more characters",
                     },
                   })}
-                  className={`custom-placeholder h-[50px] w-[356px] rounded-2xl outline-none ${errors.password ? "border-global_red" : ""} border-[0.5px] p-4 pr-10 dark:bg-darkBg`}
+                  className={`h-[50px] w-[356px] rounded-2xl outline-none ${errors.password ? "border-global_red" : ""} placeholder-txtGrey border-[0.5px] p-4 pr-10 dark:bg-darkBg dark:placeholder-textGrey`}
                   placeholder="****************"
                 />
                 <button
@@ -203,10 +205,17 @@ const NavBar = () => {
             </div>
 
             <button
-              className="h-[43px] w-full items-center justify-center rounded-2xl bg-[#298DFF] text-white dark:bg-global_orange md:flex"
+              className="flex h-[43px] w-full items-center justify-center rounded-2xl bg-[#298DFF] text-white dark:bg-global_orange"
               type="submit"
+              disabled={isLoading}
             >
-              <span className="text-center text-base font-medium">Log In</span>
+              {isLoading ? (
+                <div className="loader h-6 w-6 animate-spin rounded-full border-4 border-t-4 border-gray-200 border-t-blue-500 dark:border-t-global_orange"></div> // Show loader
+              ) : (
+                <span className="text-center text-base font-medium">
+                  Log In
+                </span>
+              )}
             </button>
           </form>
         </div>
