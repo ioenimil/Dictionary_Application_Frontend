@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 const fontOptions = [
   { name: "San Serif", value: "san-serif" },
@@ -17,7 +17,10 @@ const Dropdown = () => {
     localStorage.setItem("fontValue", fontValue);
   };
   const handleClickOutside = (event: MouseEvent) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
       setIsOpen(false);
     }
   };
@@ -37,15 +40,15 @@ const Dropdown = () => {
     <div
       key={fontValue}
       onClick={() => handleFontSelection(fontValue, fontName)}
-      className="py-2 md:p-2 font-bold dark:hover:text-orange hover:text-blue-600 cursor-pointer"
+      className={`cursor-pointer py-2 font-bold hover:text-blue-600 dark:hover:text-orange md:p-2 ${selectedFont === fontName ? "text-blue-600 dark:text-orange" : "text-black dark:text-white"}`}
     >
       {fontName}
     </div>
   );
   return (
-    <div className="  md:relative inline-block w-full" ref={dropdownRef}>
+    <div className="inline-block w-full md:relative" ref={dropdownRef}>
       <div
-        className="md:p-2 border-global_blue  dark:border-global_orange border-b-[1px] md:border-none flex items-center justify-between font-bold w-full cursor-pointer"
+        className="flex w-full cursor-pointer items-center justify-between border-b-[1px] border-global_blue font-bold dark:border-global_orange md:border-none md:p-2"
         onClick={() => setIsOpen((prev) => !prev)}
       >
         {selectedFont}
@@ -56,9 +59,7 @@ const Dropdown = () => {
         )}
       </div>
       {isOpen && (
-        <div
-          className="md:absolute p-0 md:left-0 md:right-0 mt-2 md:py-3 md:px-3 md:w-[150px] lg:w-[180px] md:rounded-2xl md:bg-white md:dark:bg-darkBg md:shadow-lightMode md:dark:shadow-darkMode md:z-10 transform transition-all duration-300 ease-out"
-        >
+        <div className="mt-2 transform p-0 transition-all duration-300 ease-out md:absolute md:left-0 md:right-0 md:z-10 md:w-[150px] md:rounded-2xl md:bg-white md:px-3 md:py-3 md:shadow-lightMode md:dark:bg-darkBg md:dark:shadow-darkMode lg:w-[180px]">
           {fontOptions.map((font) => renderFontOption(font.value, font.name))}
         </div>
       )}

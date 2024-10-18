@@ -5,6 +5,7 @@
 * {
   @apply transition-colors duration-100;
 }
+
 .scrollbar-thin {
   scrollbar-width: thin;
   scrollbar-color: #b3b3b3 transparent;
@@ -113,7 +114,8 @@
   border-collapse: collapse;
 }
 
-.word-table th, .word-table td {
+.word-table th,
+.word-table td {
   border: 1px solid #ddd;
   padding: 8px;
 }

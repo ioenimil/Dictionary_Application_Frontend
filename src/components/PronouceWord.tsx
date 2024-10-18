@@ -1,35 +1,63 @@
-import React, { useRef } from "react";
-import playIcon from "../assets/playIcon.svg";
+import darkPlayIcon from "@assets/Frame 427318345.svg";
+import playIcon from "@assets/playIcon.svg";
+import React, { useEffect, useRef, useState } from "react";
 import { WordResult } from "types";
 
 interface Props {
   results: WordResult[];
 }
+
 const PronounceWord: React.FC<Props> = ({ results }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const detectDarkMode = () => {
+    const htmlElement = document.documentElement;
+    const darkModeEnabled = htmlElement.classList.contains("dark");
+    setIsDarkMode(darkModeEnabled);
+  };
+
+  useEffect(() => {
+    detectDarkMode();
+
+    const observer = new MutationObserver(() => {
+      detectDarkMode();
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   const playAudio = () => {
     if (audioRef.current) {
       audioRef.current.play();
     }
   };
+
   const firstResult = results[0];
   if (!firstResult) {
     return null;
   }
+
   const phoneticWithAudio = firstResult.phonetics.find(
-    (phonetic) => phonetic.audio
+    (phonetic) => phonetic.audio,
   );
+
   return (
     <div className="flex items-center justify-between">
       <div>
-
-        <h2 className="font-bold text-3xl dark:text-white capitalize text-[#2D2D2D]">
-
-       
-
+        <h2 className="text-3xl font-bold capitalize text-[#2D2D2D] dark:text-white">
           {firstResult.word}
         </h2>
-        <p className="text-global_blue dark:text-global_orange font-semibold">{firstResult.phonetic}</p>
+        <p className="font-semibold text-global_blue dark:text-global_orange">
+          {firstResult.phonetic}
+        </p>
       </div>
       <div>
         {phoneticWithAudio && (
@@ -37,7 +65,7 @@ const PronounceWord: React.FC<Props> = ({ results }) => {
             <img
               onClick={playAudio}
               className="h-[60px] w-[60px] cursor-pointer"
-              src={playIcon}
+              src={isDarkMode ? darkPlayIcon : playIcon}
               alt="play icon"
             />
             <audio
@@ -51,4 +79,5 @@ const PronounceWord: React.FC<Props> = ({ results }) => {
     </div>
   );
 };
+
 export default PronounceWord;
