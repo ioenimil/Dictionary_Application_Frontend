@@ -1,4 +1,11 @@
+import { getAppTheme } from '../lib/helper';
 import React, { useState } from 'react';
+import { MdKeyboardArrowRight } from 'react-icons/md';
+import { Slide, toast } from 'react-toastify';
+import playIcon from "../assets/playIcon.svg";
+import SelectPartOfSpeech from './SelectPartOfSpeech';
+import { FaMinus, FaPlus } from 'react-icons/fa';
+import { FiPlus } from 'react-icons/fi';
 
 // Interfaces for the word data structure
 interface Definition {
@@ -21,8 +28,11 @@ interface WordData {
   meanings: Meaning[];
   sourceUrls: string[];
 }
+interface setShowAddWord {
+  setShowAddWord: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-const AddWord: React.FC = () => {
+const AddWord = ({setShowAddWord}: setShowAddWord) => {
   const [wordData, setWordData] = useState<WordData>({
     word: '',
     phonetics: [],
@@ -135,8 +145,10 @@ const AddWord: React.FC = () => {
   };
 
   // Handle form submit (log payload to console)
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const theme = getAppTheme()
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+  
     const payload = {
       word: wordData.word,
       phonetics: wordData.phonetics,
@@ -146,187 +158,273 @@ const AddWord: React.FC = () => {
           definition: def.definition,
           synonyms: def.synonyms,
           antonyms: def.antonyms,
-          example: def.example
+          example: def.example,
         })),
         synonyms: meaning.synonyms,
-        antonyms: meaning.antonyms
+        antonyms: meaning.antonyms,
       })),
-      sourceUrls: wordData.sourceUrls
+      sourceUrls: wordData.sourceUrls,
     };
-    
-    console.log(payload);
+  
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_APP_DICTIONARY_API}api/v1/add_word/`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+  
+      const data = await response.json();
+      console.log(data)
+      if (!response.ok) {
+        toast.error(data.error, { 
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: theme,
+          transition: Slide,
+        });
+      } else {
+        toast.success('Word added successfully!', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: theme,
+          transition: Slide,
+        });
+      }
+    } catch (error) {
+      toast.error('An error occurred. Please try again.', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: theme,
+        
+      });
+    }
   };
+  
 
   return (
-    <div className="max-w-4xl mx-auto p-4 bg-white">
-      <h1 className="text-xl font-semibold mb-4">Add Word</h1>
-      <form className="space-y-4" onSubmit={handleSubmit}>
-        <div className="flex space-x-4">
-          <div className="w-1/2">
-            <label className="block text-sm font-medium text-gray-700">Word to add *</label>
-            <input
-              type="text"
-              className="mt-1 block w-full border border-gray-300 p-2 rounded-md shadow-sm"
-              value={wordData.word}
-              onChange={handleWordChange}
-              required
-            />
+    <div className=" w-full max-h-[88vh] overflow-y-auto px-3 ">
+      <form className="space-y-4 py-2" onSubmit={handleSubmit}>
+
+        <div className=' flex items-center  justify-between'>
+        <div className=" flex items-center ">
+          
+          <span className=' text-sm text-textGrey'>Add Word</span> 
+          <MdKeyboardArrowRight className=' text-textGrey'/>
+          <span className=' text-sm font-semibold'>Add Word</span>
           </div>
-          <div className="w-1/2">
-            <label className="block text-sm font-medium text-gray-700">Source</label>
-            <input
-              type="text"
-              className="mt-1 block w-full border border-gray-300 p-2 rounded-md shadow-sm"
-              placeholder="Source (Optional)"
-            />
-          </div>
-        </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Pronunciation</label>
-          <input
-            type="text"
-            className="mt-1 block w-full border border-gray-300 p-2 rounded-md shadow-sm"
-            placeholder="Phonetic"
-          />
-        </div>
-
-        <div className="mt-6">
-          <h3 className="text-lg font-medium">Parts of Speech</h3>
-          {wordData.meanings.map((meaning, meaningIndex) => (
-            <div key={meaningIndex} className="mt-4 border p-4 rounded-md bg-gray-50">
-              <div className="flex justify-between items-center">
-                <div className="w-1/2">
-                  <label className="block text-sm font-medium text-gray-700">Part of Speech *</label>
-                  <select
-                    value={meaning.partOfSpeech}
-                    onChange={(e) => handlePartOfSpeechChange(meaningIndex, e.target.value)}
-                    className="mt-1 block w-full border border-gray-300 p-2 rounded-md shadow-sm"
-                    required
-                  >
-                    <option value="">Select...</option>
-                    <option value="noun">Noun</option>
-                    <option value="verb">Verb</option>
-                    <option value="adjective">Adjective</option>
-                    <option value="adverb">Adverb</option>
-                  </select>
-                </div>
-                {wordData.meanings.length > 1 && (
-                  <button
-                    type="button"
-                    className="text-red-600"
-                    onClick={() => handleRemovePartOfSpeech(meaningIndex)}
-                  >
-                    Remove
-                  </button>
-                )}
-              </div>
-
-              {meaning.definitions.map((definition, defIndex) => (
-                <div key={defIndex} className="mt-4">
-                  <label className="block text-sm font-medium text-gray-700">Meaning</label>
-                  <textarea
-                    value={definition.definition}
-                    onChange={(e) => handleDefinitionChange(meaningIndex, defIndex, e.target.value)}
-                    className="mt-1 block w-full border border-gray-300 p-2 rounded-md shadow-sm"
-                    rows={2}
-                  ></textarea>
-
-                  <label className="block mt-4 text-sm font-medium text-gray-700">Examples</label>
-                  {definition.example.map((ex, exIndex) => (
-                    <div key={exIndex} className="mt-1 flex space-x-2">
-                      <input
-                        type="text"
-                        className="block w-full border border-gray-300 p-2 rounded-md shadow-sm"
-                        placeholder="Example"
-                        value={ex}
-                        onChange={(e) => handleExampleChange(meaningIndex, defIndex, exIndex, e.target.value)}
-                      />
-                      {definition.example.length > 1 && (
-                        <button
-                          type="button"
-                          className="text-red-600"
-                          onClick={() => handleRemoveExample(meaningIndex, defIndex, exIndex)}
-                        >
-                          ✕
-                        </button>
-                      )}
-                    </div>
-                  ))}
-                  <button
-                    type="button"
-                    onClick={() => handleAddExample(meaningIndex, defIndex)}
-                    className="mt-2 text-sm text-blue-600 hover:underline"
-                  >
-                    + Add Example
-                  </button>
-                </div>
-              ))}
-
-              {meaning.definitions.length > 1 && (
-                <button
-                  type="button"
-                  onClick={() => handleRemoveMeaning(meaningIndex, meaning.definitions.length - 1)}
-                  className="mt-4 text-red-600"
-                >
-                  Remove Meaning
-                </button>
-              )}
-              <button
-                type="button"
-                onClick={() => handleAddMeaning(meaningIndex)}
-                className="mt-4 text-sm text-blue-600 hover:underline"
-              >
-                + Add Meaning
-              </button>
-
-              <div className="flex space-x-4 mt-4">
-                <div className="w-1/2">
-                  <label className="block text-sm font-medium text-gray-700">Synonyms</label>
-                  <input
-                    type="text"
-                    className="mt-1 block w-full border border-gray-300 p-2 rounded-md shadow-sm"
-                    placeholder="Synonyms (comma separated)"
-                    onBlur={(e) => handleSynonymChange(meaningIndex, e.target.value)}
-                  />
-                </div>
-                <div className="w-1/2">
-                  <label className="block text-sm font-medium text-gray-700">Antonyms</label>
-                  <input
-                    type="text"
-                    className="mt-1 block w-full border border-gray-300 p-2 rounded-md shadow-sm"
-                    placeholder="Antonyms (comma separated)"
-                    onBlur={(e) => handleAntonymChange(meaningIndex, e.target.value)}
-                  />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <button
-          type="button"
-          onClick={handleAddPartOfSpeech}
-          className="mt-4 inline-flex items-center px-4 py-2 bg-gray-800 text-white rounded-md shadow hover:bg-gray-700"
-        >
-          + Add Part of Speech
-        </button>
-
-        <div className="mt-6 flex justify-end space-x-4">
+        <div className="flex items-center space-x-4">
           <button
+          onClick={() => setShowAddWord(false)}
             type="button"
-            className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md shadow-sm hover:bg-gray-50"
+            className="px-4 py-1 border text-sm border-gray-300 text-global_blue font-semibold rounded-md  hover:bg-gray-50"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="px-4 py-2 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-500"
+            className="px-4 py-1 bg-global_blue text-sm text-white rounded-md shadow-sm hover:bg-blue-500"
           >
             Add
           </button>
         </div>
-      </form>
+        </div>
+        <p className=" text-textGrey">
+        Fields marked with (<span className="required">*</span>) are required.
+      </p> 
+      <div className="flex space-x-4">
+          <div className="mb-2 h-[89px] w-[540px] rounded-xl border bg-white dark:bg-textBlack pl-5 hover:border-global_blue">
+          <label className="text-textGrey">
+              Word to add<span className="required"> *</span>
+            </label>
+            <input
+              type="text"
+              className="mt-3 w-full bg-transparent font-medium outline-none"              value={wordData.word}
+              onChange={handleWordChange}
+              required
+            />
+          </div>
+          <div className="mb-2 h-[89px] w-[540px] rounded-xl border bg-white dark:bg-textBlack  pl-5 hover:border-global_blue">
+          <label className="text-textGrey">Source</label>
+            <input
+              type="text"
+              className="mt-3 w-full bg-transparent font-medium outline-none"
+              
+            />
+          </div>
+        </div>
+        <div className="my-3 h-[89px] w-[1092px] rounded-xl border bg-white dark:bg-textBlack  pl-5 hover:border-global_blue">
+        <label className="text-textGrey">
+            Pronunciation<span className="required"> *</span>
+          </label>
+          <div className="flex items-center gap-3">
+            <input
+            placeholder="Phonetics"
+              type="text"
+              className="h-[42px] w-[540px]    rounded-xl border border-[#979797] bg-white dark:bg-textBlack  p-2.5 text-sm text-textGrey outline-none"
+            />
+            <img src={playIcon} alt="soundImage" className="h-10 w-10" />
+
+          </div>
+        </div>
+
+        <div className="mt-6">
+        {wordData.meanings.map((meaning, meaningIndex) => { 
+          return (
+            <div className=' bg-white dark:bg-textBlack  px-2 py-2 rounded-xl shadow-sm'>
+<SelectPartOfSpeech
+  meaning={meaning}
+  meaningIndex={meaningIndex} 
+  handlePartOfSpeechChange={handlePartOfSpeechChange} 
+/>          <div key={meaningIndex} className="mt-4 border dark:border-textGrey p-4 rounded-md ">
+            <div className="flex justify-between items-center">
+              {wordData.meanings.length > 1 && (
+                <button
+                  type="button"
+                  className="text-red-600"
+                  onClick={() => handleRemovePartOfSpeech(meaningIndex)}
+                >
+                  Remove
+                </button>
+              )}
+            </div>
+            <div className=' flex items-center mb-2 justify-between'>
+                <label className="block text-sm ">Add Meaning</label> 
+                 <div className='flex items-center gap-2 '>
+                 {meaning.definitions.length > 1 && (
+              <button
+                type="button"
+                onClick={() => handleRemoveMeaning(meaningIndex, meaning.definitions.length - 1)}          
+              >
+               <FaMinus className=' text-textGrey' />
+              </button>
+            )}
+             <FaPlus className='text-textGrey'  onClick={() => handleAddMeaning(meaningIndex)}/>     
+                 </div>
+               
+                </div>
+            {meaning.definitions.map((definition, defIndex) => (
+            
+                <div key={defIndex} className=" mt-3 ">
+                <div className=' bg-[#F4F4F4] dark:bg-[#2D2D2D] rounded-md shadow-sm px-2 py-2  '>
+                  <div>
+                  <span className=' text-sm'>Meaning:</span>
+                  <div className=' w-[90%]  mx-auto  flex items-center gap-2 justify-center h-fit'>
+                  <span className="w-2 h-2  bg-global_blue rounded-full "></span>
+                  <input
+                  value={definition.definition}
+                  placeholder='Add word meaning'
+                  onChange={(e) => handleDefinitionChange(meaningIndex, defIndex, e.target.value)}
+                  className="mt-1 placeholder:text-sm bg-transparent  outline-none border-none block w-full" 
+
+                />
+                  </div>
+                  </div>
+                 
+                  <hr  className=' border-[#979797] dark:border-[#757575] mt-1'/>
+                 <div className='flex items-center justify-between'>
+                  <div  className=' flex-1'>
+                  <span className=" mt-1 text-sm ">Examples:</span>
+                 {definition.example.map((ex, exIndex) => { 
+                   return (
+                     <div  className=' flex items-center '>
+                     <div key={exIndex} className=" w-[90%]   mx-auto mt-1 flex items-center gap-2">
+                    <p className=' flex items-center gap-2'>
+                  <span className="w-2 h-2  bg-global_blue rounded-full "></span>
+                  <span className=' text-sm text-textGrey'>Example:</span>
+                  </p>
+                    <input
+                      type="text"
+                      className=" w-full text-sm outline-none bg-transparent"
+                      placeholder="Example"
+                      value={ex}
+                      onChange={(e) => handleExampleChange(meaningIndex, defIndex, exIndex, e.target.value)}
+                    />
+                    
+                  </div>
+                  <div className='flex items-center gap-2'>
+                  {definition.example.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveExample(meaningIndex, defIndex, exIndex)}
+                      >
+                        <FaMinus className=' text-textGrey' />
+                      </button>
+                    )}
+                    <button onClick={()=>handleAddExample(meaningIndex, defIndex)}  type="button"  >                    
+                    <FaPlus className=' text-textGrey cursor-pointer' />
+                    </button>
+                
+                  </div>
+                     </div>
+                   )
+                  
+        })}
+                  </div>
+                 
+               
+                 </div>
+                </div> 
+              </div>
+            
+             
+            ))}
+            <div className="flex space-x-4 mt-4">
+              <div className="w-1/2">
+                <input
+                  type="text"
+                  className="mt-1 placeholder:text-sm dark:border-[#757575] dark:bg-textBlack outline-none block w-full border border-[#979797] p-2 rounded-md shadow-sm"
+                  placeholder="Synonyms "
+                  onBlur={(e) => handleSynonymChange(meaningIndex, e.target.value)}
+                />
+              </div>
+              <div className="w-1/2 ">
+                <input
+                  type="text"
+                  className="mt-1 block placeholder:text-sm dark:bg-textBlack outline-none  w-full border border-[#979797] dark:border-[#757575] p-2 rounded-md shadow-sm"
+                  placeholder="Antonyms "
+                  onBlur={(e) => handleAntonymChange(meaningIndex, e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+            </div>
+           
+        )
+           
+})}
+        </div>
+      
+         
+          <button
+          type="button"
+          onClick={handleAddPartOfSpeech}
+          className=' w-full mt-2  border-black  h-[89px] border-[1px] border-dashed dark:border-[#757575] flex items-center rounded-md justify-center gap-2 cursor-pointer'
+        >
+           <FiPlus />
+        Add Part of Speech
+        </button>
+        </form>
     </div>
   );
 };

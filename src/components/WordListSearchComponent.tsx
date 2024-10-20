@@ -11,7 +11,7 @@ const WordListSearchComponent: React.FC<WordListSearchComponentProps> = ({
   setSearchTerm,
 }) => {
   return (
-    <main className="ml-[348px] flex h-[33px] w-[550px] rounded-xl bg-grayBg pl-5 dark:bg-textBlack dark:text-textGrey">
+    <main className=" flex  mt-2 h-[33px] w-[550px] rounded-xl bg-grayBg pl-5 dark:bg-textBlack dark:text-textGrey">
       <IoSearch className="ml-1 mt-2 h-4 w-4 items-center dark:text-orange" />
       <input
         className="w-full bg-transparent pl-3 outline-none placeholder:text-textBlack dark:placeholder:text-white"
