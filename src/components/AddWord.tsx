@@ -2,12 +2,11 @@ import { getAppTheme } from '../lib/helper';
 import React, { useState } from 'react';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import { Slide, toast } from 'react-toastify';
-import playIcon from "../assets/playIcon.svg";
 import SelectPartOfSpeech from './SelectPartOfSpeech';
 import { FaMinus, FaPlus } from 'react-icons/fa';
-import { FiPlus } from 'react-icons/fi';
+import { FiPlus, FiPlusCircle } from 'react-icons/fi';
+import { HiSpeakerWave } from 'react-icons/hi2';
 
-// Interfaces for the word data structure
 interface Definition {
   definition: string;
   synonyms: string[];
@@ -49,12 +48,10 @@ const AddWord = ({setShowAddWord}: setShowAddWord) => {
     sourceUrls: []
   });
 
-  // Handle change for Word input
   const handleWordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setWordData({ ...wordData, word: e.target.value });
   };
 
-  // Add new part of speech
   const handleAddPartOfSpeech = () => {
     const newPartOfSpeech: Meaning = {
       partOfSpeech: 'noun',
@@ -65,7 +62,6 @@ const AddWord = ({setShowAddWord}: setShowAddWord) => {
     setWordData({ ...wordData, meanings: [...wordData.meanings, newPartOfSpeech] });
   };
 
-  // Remove part of speech
   const handleRemovePartOfSpeech = (index: number) => {
     if (wordData.meanings.length > 1) {
       const updatedMeanings = wordData.meanings.filter((_, i) => i !== index);
@@ -73,14 +69,12 @@ const AddWord = ({setShowAddWord}: setShowAddWord) => {
     }
   };
 
-  // Update part of speech
   const handlePartOfSpeechChange = (index: number, value: string) => {
     const updatedMeanings = [...wordData.meanings];
     updatedMeanings[index].partOfSpeech = value;
     setWordData({ ...wordData, meanings: updatedMeanings });
   };
 
-  // Add new meaning within a part of speech
   const handleAddMeaning = (meaningIndex: number) => {
     const updatedMeanings = [...wordData.meanings];
     const newDefinition: Definition = { definition: '', synonyms: [], antonyms: [], example: [''] };
@@ -88,7 +82,6 @@ const AddWord = ({setShowAddWord}: setShowAddWord) => {
     setWordData({ ...wordData, meanings: updatedMeanings });
   };
 
-  // Remove meaning
   const handleRemoveMeaning = (meaningIndex: number, defIndex: number) => {
     if (wordData.meanings[meaningIndex].definitions.length > 1) {
       const updatedMeanings = [...wordData.meanings];
@@ -99,21 +92,18 @@ const AddWord = ({setShowAddWord}: setShowAddWord) => {
     }
   };
 
-  // Update definition
   const handleDefinitionChange = (meaningIndex: number, defIndex: number, value: string) => {
     const updatedMeanings = [...wordData.meanings];
     updatedMeanings[meaningIndex].definitions[defIndex].definition = value;
     setWordData({ ...wordData, meanings: updatedMeanings });
   };
 
-  // Add example to a meaning
   const handleAddExample = (meaningIndex: number, defIndex: number) => {
     const updatedMeanings = [...wordData.meanings];
     updatedMeanings[meaningIndex].definitions[defIndex].example.push('');
     setWordData({ ...wordData, meanings: updatedMeanings });
   };
 
-  // Remove example
   const handleRemoveExample = (meaningIndex: number, defIndex: number, exIndex: number) => {
     if (wordData.meanings[meaningIndex].definitions[defIndex].example.length > 1) {
       const updatedMeanings = [...wordData.meanings];
@@ -124,14 +114,12 @@ const AddWord = ({setShowAddWord}: setShowAddWord) => {
     }
   };
 
-  // Update example
   const handleExampleChange = (meaningIndex: number, defIndex: number, exIndex: number, value: string) => {
     const updatedMeanings = [...wordData.meanings];
     updatedMeanings[meaningIndex].definitions[defIndex].example[exIndex] = value;
     setWordData({ ...wordData, meanings: updatedMeanings });
   };
 
-  // Update synonyms or antonyms
   const handleSynonymChange = (meaningIndex: number, value: string) => {
     const updatedMeanings = [...wordData.meanings];
     updatedMeanings[meaningIndex].synonyms = value.split(',').map(s => s.trim());
@@ -143,8 +131,6 @@ const AddWord = ({setShowAddWord}: setShowAddWord) => {
     updatedMeanings[meaningIndex].antonyms = value.split(',').map(s => s.trim());
     setWordData({ ...wordData, meanings: updatedMeanings });
   };
-
-  // Handle form submit (log payload to console)
   const theme = getAppTheme()
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -236,14 +222,15 @@ const AddWord = ({setShowAddWord}: setShowAddWord) => {
           <button
           onClick={() => setShowAddWord(false)}
             type="button"
-            className="px-4 py-1 border text-sm border-gray-300 text-global_blue font-semibold rounded-md  hover:bg-gray-50"
+            className="px-4 py-1 w-[100px] border-[1px] hover:bg-transparent  dark:border-[#B2B1B1] dark:text-global_orange text-sm border-gray-300 text-global_blue font-semibold rounded-md  hover:bg-gray-50"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="px-4 py-1 bg-global_blue text-sm text-white rounded-md shadow-sm hover:bg-blue-500"
+            className=" w-[100px] flex items-center  gap-2 px-4 py-1 dark:bg-global_orange  bg-global_blue text-sm text-white rounded-md shadow-sm hover:bg-blue-500"
           >
+            <FiPlusCircle />
             Add
           </button>
         </div>
@@ -282,8 +269,10 @@ const AddWord = ({setShowAddWord}: setShowAddWord) => {
               type="text"
               className="h-[42px] w-[540px]    rounded-xl border border-[#979797] bg-white dark:bg-textBlack  p-2.5 text-sm text-textGrey outline-none"
             />
-            <img src={playIcon} alt="soundImage" className="h-10 w-10" />
-
+           <span className=' text-white w-10 h-10 rounded-full flex items-center justify-center bg-global_blue dark:bg-global_orange'>
+           <HiSpeakerWave  className=' text-xl' />
+           </span>
+            
           </div>
         </div>
 
