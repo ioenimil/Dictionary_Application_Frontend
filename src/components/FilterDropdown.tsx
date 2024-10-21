@@ -46,23 +46,23 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
     <div ref={dropdownRef} className="relative inline-block w-[111px]">
       <div
         onClick={toggleDropdown}
-        className="flex h-[33px] w-[111px] cursor-pointer items-center rounded bg-grayBg px-3 py-1 dark:bg-textBlack dark:text-textGrey"
+        className="flex h-[33px] w-[111px] cursor-pointer items-center   rounded bg-grayBg px-3 py-1 dark:bg-textBlack dark:text-textGrey"
       >
         <img src={filterIcon} alt="filter-icon" className="h-4 w-4" />
 
-        <span className="pl-1 text-base font-medium text-textGrey">
+        <span className="pl-1 text-sm font-medium text-textGrey">
           {selected}
         </span>
       </div>
 
       {isOpen && (
         <ul
-          className={`dark:text-textWhite absolute left-0 z-10 mt-1 rounded bg-white transition-opacity duration-300 ease-out dark:bg-black dark:shadow-darkMode opacity-${isOpen ? 100 : 0}`}
+          className={`dark:text-textWhite absolute shadow-md left-0 z-10 mt-1 rounded bg-white transition-opacity duration-300 ease-out dark:bg-black dark:shadow-darkMode opacity-${isOpen ? 100 : 0}`}
         >
           {options.map((option) => (
             <li
               key={option.value}
-              className="cursor-pointer px-4 py-2 hover:bg-grayBg dark:hover:bg-transparent dark:hover:text-orange"
+              className="cursor-pointer text-sm px-4 py-2 hover:bg-grayBg dark:hover:bg-transparent dark:hover:text-orange"
               onClick={() => selectOption(option)}
             >
               {option.label}

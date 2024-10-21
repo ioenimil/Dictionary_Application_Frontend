@@ -104,7 +104,7 @@ const Dashboard = () => {
             </div>
           )}
         </nav>
-        <div className="h-full overflow-y-auto">
+        <div className="h-full  overflow-y-auto">
           <Outlet />
         </div>
       </div>

@@ -9,6 +9,8 @@ import DeleteConfirmationModal from "./DeleteConfirmationModal"; // Import the m
 import RenderDropdown from "./RenderDropdown"; // Import RenderDropdown component
 import WordListNavBar from "./WordListNavBar";
 import WordListSearchComponent from "./WordListSearchComponent";
+import AddWord from "./AddWord";
+
 
 interface Definition {
   id: number;
@@ -47,7 +49,7 @@ const WordListTable: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal
   const [wordToDelete, setWordToDelete] = useState<number | null>(null); // Store word index for deletion
-
+  const [showAddWord, setShowAddWord] = useState(false);
   const itemsPerPage = 7;
 
   interface Word {
@@ -80,7 +82,7 @@ const WordListTable: React.FC = () => {
           })),
         );
 
-        console.log("sampleWords", sampleWords);
+       
 
         setWords(sampleWords);
       } catch (error) {
@@ -198,82 +200,87 @@ const WordListTable: React.FC = () => {
     "px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-black dark:text-textGrey";
   const tableCellClasses = "  px-6 py-4 text-sm text-textGrey";
 
-  return (
-    <div className="flex h-full flex-col">
-      <WordListSearchComponent
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-      />
-      <WordListNavBar
-        onFilter={(filter) => setFilterTerm(filter)}
-        onSort={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
-      />
-
-      {filteredWords.length === 0 ? (
-        <div className="flex flex-grow items-center justify-center">
-          <p className="text-center text-6xl text-textGrey">No words added.</p>
-        </div>
-      ) : (
-        <>
-          <table className="mt-2 w-full divide-y divide-gray-500">
-            <thead className="h-[75px] bg-white dark:bg-[] dark:bg-textBlack dark:text-white">
-              <tr>
-                <th className={tableHeaderClasses}>Word</th>
-                <th className={tableHeaderClasses}>Part of Speech</th>
-                <th className={tableHeaderClasses}>Synonyms</th>
-                <th className={tableHeaderClasses}>Link</th>
-                <th className={tableHeaderClasses}></th>
-              </tr>
-            </thead>
-            <tbody className="h-[75px] divide-y divide-gray-200 bg-white dark:divide-textGrey dark:bg-[#404040] dark:text-darkGrey">
-              {currentItems.map((word, index) => (
-                <tr
-                  key={index}
-                  className="border-b border-gray-200 dark:border-textGrey"
-                >
-                  <td className={tableCellClasses}>{word.word}</td>
-                  <td className={tableCellClasses}>{word.partOfSpeech}</td>
-                  <td className={tableCellClasses}>
-                    {word.synonyms.join(" ")}
-                  </td>
-                  <td className={`${tableCellClasses} underline`}>
-                    <a
-                      href={word.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {word.link}
-                    </a>
-                  </td>
-                  <td className="relative whitespace-nowrap px-6 py-4 text-sm font-medium">
-                    <button onClick={() => toggleDropdown(index)}>
-                      <FiMoreHorizontal className="text-textGrey" />
-                    </button>
-                    {dropdownVisible === index && (
-                      <RenderDropdown
-                        key={index}
-                        index={index}
-                        onEdit={handleEdit}
-                        onDelete={() => handleDelete(word.id)}
-                        onClose={() => setDropdownVisible(null)}
-                      />
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {filteredWords.length > 7 && renderPagination()}
-        </>
-      )}
-
-      <DeleteConfirmationModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onConfirm={confirmDelete}
-      />
+  return showAddWord? ( <AddWord setShowAddWord={setShowAddWord}/>):(  <div className="flex    flex-col">
+   
+    <div className=" w-full flex items-center justify-center">
+    <WordListSearchComponent
+      searchTerm={searchTerm}
+      setSearchTerm={setSearchTerm}
+    />
     </div>
-  );
+    <WordListNavBar
+    setShowAddWord={setShowAddWord}
+      onFilter={(filter) => setFilterTerm(filter)}
+      onSort={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
+    />
+
+    {filteredWords.length === 0 ? (
+      <div className="flex flex-grow items-center justify-center">
+        <p className="text-center text-2  xl text-textGrey">No words added.</p>
+      </div>
+    ) : (
+      <>
+        <table className="mt-2 w-full divide-y divide-gray-500">
+          <thead className="h-[75px] bg-white dark:bg-[] dark:bg-textBlack dark:text-white">
+            <tr>
+              <th className={tableHeaderClasses}>Word</th>
+              <th className={tableHeaderClasses}>Part of Speech</th>
+              <th className={tableHeaderClasses}>Synonyms</th>
+              <th className={tableHeaderClasses}>Link</th>
+              <th className={tableHeaderClasses}></th>
+            </tr>
+          </thead>
+          <tbody className="h-[75px] divide-y divide-gray-200 bg-white dark:divide-textGrey dark:bg-[#404040] dark:text-darkGrey">
+            {currentItems.map((word, index) => (
+              <tr
+                key={index}
+                className="border-b border-gray-200 dark:border-textGrey"
+              >
+                <td className={tableCellClasses}>{word.word}</td>
+                <td className={tableCellClasses}>{word.partOfSpeech}</td>
+                <td className={tableCellClasses}>
+                  {word.synonyms.join(" ")}
+                </td>
+                <td className={`${tableCellClasses} underline`}>
+                  <a
+                    href={word.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {word.link}
+                  </a>
+                </td>
+                <td className="relative whitespace-nowrap px-6 py-4 text-sm font-medium">
+                  <button onClick={() => toggleDropdown(index)}>
+                    <FiMoreHorizontal className="text-textGrey" />
+                  </button>
+                  {dropdownVisible === index && (
+                    <RenderDropdown
+                      key={index}
+                      index={index}
+                      onEdit={handleEdit}
+                      onDelete={() => handleDelete(word.id)}
+                      onClose={() => setDropdownVisible(null)}
+                    />
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {filteredWords.length > 7 && renderPagination()}
+      </>
+    )}
+
+    <DeleteConfirmationModal
+      isOpen={isModalOpen}
+      onClose={() => setIsModalOpen(false)}
+      onConfirm={confirmDelete}
+    />
+  </div>)
+      
+  
+  
 };
 
 export default WordListTable;
