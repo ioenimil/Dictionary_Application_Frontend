@@ -2,7 +2,6 @@ import addIcon from "@assets/gg_add.svg";
 import sortIcon from "@assets/Vector (1).svg";
 import React, { useState } from "react";
 import FilterDropdown from "./FilterDropdown";
-import AddWord from "./AddWord";
 interface WordListNavBarProps {
   onSort: () => void;
   onFilter: (filter: string) => void;

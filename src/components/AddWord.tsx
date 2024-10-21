@@ -179,7 +179,6 @@ const AddWord = ({setShowAddWord}: setShowAddWord) => {
       );
   
       const data = await response.json();
-      console.log(data)
       if (!response.ok) {
         toast.error(data.error, { 
           position: 'top-right',
